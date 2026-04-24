@@ -1,0 +1,8 @@
+{
+  "name": "engineering-workflow",
+  "version": "0.2.0",
+  "description": "Personal engineering workflow skills for Claude Code: operating defaults, TDD, systematic debugging, design alternatives, subagent review, and compounded learnings.",
+  "author": {
+    "name": "Harry"
+  }
+}
