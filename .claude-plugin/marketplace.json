@@ -1,0 +1,20 @@
+{
+  "name": "built-by-harry",
+  "owner": {
+    "name": "Harry"
+  },
+  "metadata": {
+    "description": "Personal Claude Code plugins built by Harry.",
+    "version": "0.1.0"
+  },
+  "plugins": [
+    {
+      "name": "engineering-workflow",
+      "source": "./",
+      "description": "Personal engineering workflow skills: operating defaults, alignment gate, agent dispatch, TDD, systematic debugging, design alternatives, subagent review, and compounded learnings.",
+      "version": "0.3.0",
+      "category": "development",
+      "strict": false
+    }
+  ]
+}
