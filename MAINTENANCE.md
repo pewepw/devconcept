@@ -75,9 +75,15 @@ Both tools copy from the source into a versioned cache:
    - Restart Claude Code after.
 
 6. **Refresh Codex cache:**
-   - `codex plugin uninstall engineering-workflow@built-by-harry` then `codex plugin install engineering-workflow@built-by-harry`
-   - (If those commands differ, check `codex plugin --help`.)
+   - As of `codex-cli 0.120.0`, there is no `codex plugin` subcommand — Codex does not automatically populate a new version cache on restart. Seed the versioned cache folder manually:
+     ```sh
+     mkdir -p ~/.codex/plugins/cache/built-by-harry/engineering-workflow/0.X.Y
+     rsync -a --delete --exclude='.git/' --exclude='.gitignore' --exclude='README.md' --exclude='MAINTENANCE.md' \
+       ~/Desktop/BuiltByHarry/engineering-workflow/ \
+       ~/.codex/plugins/cache/built-by-harry/engineering-workflow/0.X.Y/
+     ```
    - Restart Codex after.
+   - If a future Codex CLI adds `codex plugin install/uninstall`, prefer those over rsync.
 
 7. **Verify:**
    ```sh
