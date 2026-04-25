@@ -30,7 +30,7 @@ Question: **Did the subagent do what was asked — no more, no less?**
 - Flag anything added that wasn't requested: new files, refactors, helper abstractions, tests for things not asked for, unrelated cleanup.
 - Flag anything missing that the subagent skipped, deferred, or silently descoped.
 
-If the diff doesn't match the spec, send it back to a subagent with the specific gap. Do not fix it yourself — silent repair hides the pattern and lets the same drift recur.
+If the diff doesn't match the spec, prefer sending it back to a subagent with the specific gap when subagent iteration is available and useful. If delegation is unavailable, the fix is small, or local repair is faster and safer, fix it yourself and report the drift explicitly. Silent repair hides the pattern and lets the same drift recur.
 
 ### Stage 2: Code Quality
 

@@ -23,10 +23,14 @@ Both tools point at this directory via symlinks. GitHub (`pewepw/engineering-wor
 │   ├── design-alternatives/SKILL.md
 │   ├── dispatching-agents/SKILL.md
 │   ├── engineering-defaults/SKILL.md
+│   ├── finishing-work/SKILL.md
+│   ├── planning-ledger/SKILL.md
 │   ├── subagent-review/SKILL.md
 │   ├── systematic-debugging/SKILL.md
 │   ├── tdd/SKILL.md
 │   └── using-engineering-defaults/SKILL.md
+├── evals/
+│   └── engineering-workflow-evals.md
 ├── README.md
 ├── MAINTENANCE.md          # this file
 └── .gitignore

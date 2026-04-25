@@ -5,9 +5,9 @@ description: Extract learnings from the current session and write them into the 
 
 # Compound Engineering
 
-Review the current session's work, extract reusable learnings, and append them to the canonical `## Compounded Learnings` section of the project's instruction file. No approval needed — git history is your safety net.
+Review the current session's work, extract reusable learnings, and append them to the canonical `## Compounded Learnings` section of the project's instruction file. This is for durable repo-wide guidance, not routine notes.
 
-Default to running this skill before final handoff when a meaningful bug fix, refactor, or user correction reveals a reusable project rule that future agents should follow.
+Default to running this skill before final handoff only when a meaningful bug fix, refactor, or user correction reveals a reusable project rule that future agents should follow. If the learning is narrow, obvious from nearby code, or better captured in a PR/commit summary, skip it.
 
 ## Step 1: Find the Target File
 
@@ -37,6 +37,8 @@ Before deciding not to document anything, explicitly check:
 - Would updating the instruction file likely save time or prevent regressions later?
 
 If any answer is yes, you should usually run this skill instead of waiting for a separate documentation request.
+
+If the session did not produce a durable repo-wide learning, do not touch the instruction file. Report that no compounding was warranted only when relevant to the handoff.
 
 Supplement with `git log --oneline -10` and `git diff --stat` to see what files changed, but don't rely on git alone — most learnings come from the conversation.
 

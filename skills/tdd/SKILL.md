@@ -1,6 +1,6 @@
 ---
 name: tdd
-description: Test-driven development with red-green-refactor loop. Use when user wants to build features or fix bugs using TDD, mentions "red-green-refactor", wants integration tests, or asks for test-first development.
+description: Test-driven development with red-green-refactor loop. Use for bug fixes and behavior-heavy changes when tests are practical, and whenever the user asks for TDD, red-green-refactor, or integration tests.
 ---
 
 # Test-Driven Development
@@ -46,12 +46,12 @@ RIGHT (vertical):
 
 Before writing any code:
 
-- [ ] Confirm with user what interface changes are needed
-- [ ] Confirm with user which behaviors to test (prioritize)
+- [ ] Confirm what interface changes are needed, using `aligning-requirements` context if already covered
+- [ ] Confirm which behaviors to test when priorities are ambiguous
 - [ ] Identify opportunities for [deep modules](deep-modules.md) (small interface, deep implementation)
 - [ ] Design interfaces for [testability](interface-design.md)
 - [ ] List the behaviors to test (not implementation steps)
-- [ ] Get user approval on the plan
+- [ ] Get user approval only when the test plan changes scope or exposes a meaningful product decision
 
 Ask: "What should the public interface look like? Which behaviors are most important to test?"
 

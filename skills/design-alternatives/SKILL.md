@@ -1,6 +1,6 @@
 ---
 name: design-alternatives
-description: Use when a refactor, new module, or interface has real tradeoffs and the first design you'd reach for shouldn't be trusted. Dispatches 3 parallel subagents with different design constraints, compares interfaces, recommends one with explicit tradeoffs. Skip for mechanical work, bug fixes, or when the shape is already forced by repo convention.
+description: Use when a refactor, new module, or interface has real tradeoffs and the first design you'd reach for shouldn't be trusted. Generates 3 distinct designs using parallel subagents when available, or inline fallback passes when not. Skip mechanical work, bug fixes, or forced repo-convention shapes.
 ---
 
 # Design Alternatives
@@ -40,6 +40,8 @@ Do not sketch a design yet. The frame goes to every subagent verbatim.
 
 ### 2. Dispatch Three Agents In Parallel
 
+If subagents are available, use them for this step. If not, run the same three design passes yourself inline, one constraint at a time, and label the result as the inline fallback. Do not skip the comparison just because subagents are unavailable.
+
 Each agent gets the frame plus **one** distinct design constraint. Pick three axes that actually differ for this problem:
 
 - **Minimize interface** — smallest public surface, most hidden.
@@ -50,7 +52,7 @@ Each agent gets the frame plus **one** distinct design constraint. Pick three ax
 
 Each agent returns: interface signatures, one usage example, description of hidden complexity, dependency strategy, 2–3 explicit tradeoffs.
 
-Dispatch in a single message. Sequential dispatch defeats the point.
+When dispatching, send all agents in a single message. Sequential dispatch defeats the point. In inline fallback, keep the three passes separated so one design does not collapse into another.
 
 ### 3. Compare And Recommend
 

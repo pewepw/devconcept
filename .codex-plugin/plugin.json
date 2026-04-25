@@ -1,13 +1,16 @@
 {
   "name": "engineering-workflow",
-  "version": "0.4.0",
-  "description": "Personal engineering workflow skills for Codex: operating defaults, TDD, systematic debugging, design alternatives, subagent review, and compounded learnings.",
+  "version": "0.5.2",
+  "description": "Personal engineering workflow skills for Codex: operating defaults, requirements alignment, lightweight planning, agent dispatch, TDD, debugging, design alternatives, review, finishing, and compounded learnings.",
   "author": {
     "name": "Harry"
   },
   "license": "MIT",
   "keywords": [
     "engineering",
+    "alignment",
+    "planning",
+    "dispatch",
     "tdd",
     "debugging",
     "design",
@@ -18,8 +21,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Engineering Workflow",
-    "shortDescription": "Codex operating defaults, TDD, debugging, design alternatives, review, and learning capture.",
-    "longDescription": "A personal engineering workflow plugin that packages reusable Codex skills for correctness-first development: operating defaults, test-driven behavior changes, systematic debugging, parallel design-space exploration, subagent review, and durable session learning capture.",
+    "shortDescription": "Codex operating defaults, alignment, planning, dispatch, TDD, debugging, review, and finishing.",
+    "longDescription": "A personal engineering workflow plugin that packages reusable Codex skills for correctness-first development: requirements alignment before non-trivial edits, lightweight durable planning for long tasks, standing-policy subagent dispatch, test-driven behavior changes, systematic debugging, parallel design-space exploration, subagent review, honest finishing, and durable session learning capture.",
     "developerName": "Harry",
     "category": "Productivity",
     "capabilities": [
@@ -29,6 +32,9 @@
     ],
     "defaultPrompt": [
       "Use engineering workflow for this task.",
+      "Align requirements before non-trivial edits.",
+      "Use subagents when dispatch triggers hit.",
+      "Use a planning ledger for long-running work.",
       "Explore design alternatives for this interface.",
       "Compound durable learnings from this session."
     ],

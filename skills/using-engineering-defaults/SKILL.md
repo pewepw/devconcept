@@ -7,9 +7,10 @@ description: Use on the first user message of any session — invokes engineerin
 
 On the first user message of any session:
 
-1. Invoke the `engineering-defaults` skill via the Skill tool.
-2. Follow its rules for the rest of the session.
-3. Do not re-invoke — its body persists in context after the first load. Re-invoking burns context for no gain.
+1. Load the `engineering-defaults` skill body through the platform's skill mechanism.
+2. If no skill-loading tool is available, read/open the sibling file `../engineering-defaults/SKILL.md` directly before doing anything else.
+3. Follow its rules for the rest of the session.
+4. Do not re-load — its body persists in context after the first load. Re-loading burns context for no gain.
 
 ## Why this exists
 

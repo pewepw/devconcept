@@ -28,12 +28,13 @@ For trivial, low-risk work, use judgment. Ceremony that costs more than the chan
 For non-trivial work:
 
 1. Clarify the root goal and affected surface.
-2. Read the smallest useful slice of repo context.
-3. Define observable success criteria and the verification that would prove them.
-4. Write a short spec before editing when the work is multi-file, behavior-changing, or architecturally uncertain. Spec shape: **Goal / Files touched / Intended change / Verification / Rollback**. Keep it inline in chat by default; commit to a file only if the decisions in it need to outlive the task.
-5. Make the smallest coherent change.
-6. Verify with the strongest relevant check available.
-7. Report what changed and what remains risky or uncertain. Keep verification narration to a single line unless the check surfaced something.
+2. Gather the smallest useful slice of repo context before alignment. If that means reading multiple unfamiliar areas, use `dispatching-agents` for read-only exploration.
+3. For non-trivial edits, use `aligning-requirements` and wait for confirmation before editing.
+4. Define observable success criteria and the verification that would prove them.
+5. Write a short mini-spec before editing when the work is multi-file, behavior-changing, or architecturally uncertain. Spec shape: **Goal / Files touched / Intended change / Verification / Rollback**. Keep it inline by default; use `planning-ledger` only if the decisions need durable tracking.
+6. Make the smallest coherent change.
+7. Verify with the strongest relevant check available.
+8. Use `finishing-work` before final handoff.
 
 ## Working Rules
 
@@ -68,10 +69,14 @@ For non-trivial work:
 
 ## Specific Skill Triggers
 
+- Invoke `aligning-requirements` before the first Edit/Write or mutating/state-changing Bash on any non-trivial request, after minimal context gathering. Skip only for trivial mechanical edits, read-only work, or active plan mode.
+- Invoke `planning-ledger` for long-running, multi-phase, research-heavy, multi-agent, or context-compaction-prone work. Do not use it for normal small edits where an inline mini-spec is enough.
+- Invoke `dispatching-agents` when its observable triggers hit: multiple unfamiliar files, independent failures, long research, heavy output, or parallel implementation slices. Read-only explorers may be automatic under the standing policy; code-writing workers require clear disjoint ownership.
 - Default to test-first thinking for bug fixes and behavior-heavy changes. In this environment, that usually maps to the `tdd` skill.
-- Invoke `design-alternatives` when a non-trivial refactor or new interface has real tradeoffs and the right shape isn't forced by repo convention.
+- Invoke `design-alternatives` directly when a non-trivial refactor or new interface has real tradeoffs and the right shape isn't forced by repo convention.
 - Escalate to a structured debug loop when a first fix didn't hold or the bug is intermittent, cross-module, or has no clean repro. In this environment, that usually maps to the `systematic-debugging` skill.
 - Review implementer-subagent output against the original spec before reporting done. In this environment, that usually maps to the `subagent-review` skill.
+- Invoke `finishing-work` before final handoff after code changes, subagent work, `planning-ledger`, or any completion claim.
 - Capture durable learnings when a user correction, recurring bug pattern, or non-obvious convention should guide future work repo-wide, or when a future task in the same module or feature would likely repeat the mistake without the note. In this environment, that usually maps to the `compound-engineering` skill.
 
 ## Design Bias
@@ -84,10 +89,9 @@ For non-trivial work:
 ## Scope And Workflow
 
 - Match process to risk. Small mechanical edits can proceed directly.
+- Use a chat alignment block for normal non-trivial work; use an inline mini-spec for execution details; use `planning-ledger` only when the plan must survive a long session or handoff.
 - If scope starts widening, separate exploration from implementation and keep only the necessary facts in working context.
-- Delegate to helper agents or parallel workers when they would reduce context load. Parallel-dispatch only when problem domains are independent and do not share state; never for failures that might share a root cause.
-- When dispatching, each agent prompt must be self-contained: include file paths, error text, and the explicit deliverable. Vague scopes ("fix the tests") produce vague results.
-- When three or more independent failures appear across unrelated files, default to parallel dispatch rather than sequential investigation.
+- Delegate through `dispatching-agents` when it would reduce context load or wall-clock time without blocking the critical path. Parallel-dispatch only when problem domains are independent and do not share state; never for failures that might share a root cause.
 - If delegation is unavailable, do the work in a separate pass yourself.
 - Batch independent reads and searches when possible.
 
@@ -141,6 +145,7 @@ For non-trivial work:
 - Use diffs and code references to support the summary, not replace it.
 - State every skill used in the final summary. If a skill materially shaped the work, briefly state how.
 - State any obvious or default-trigger `engineering-workflow` skill not used in the final summary, with a concise reason. If there were no relevant skipped `engineering-workflow` skills, state that none were intentionally skipped.
+- Distinguish **skipped** from **missed**. If a default-trigger skill's observable conditions appeared to hit during the work but the skill was not loaded, name it explicitly as a miss, not a skip. Silent under-fires cannot be improved.
 
 ## When Stuck
 
