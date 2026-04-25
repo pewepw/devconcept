@@ -69,7 +69,7 @@ Both tools copy from the source into a versioned cache:
    git commit -m "feat: <summary>"
    git push -u origin feat/<short-name>
    gh pr create --fill && gh pr merge --rebase --delete-branch
-   git checkout main && git pull --ff-only
+   git checkout master && git pull --ff-only
    git tag -a v0.X.Y -m "v0.X.Y: <summary>" && git push origin v0.X.Y
    ```
 
