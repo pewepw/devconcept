@@ -1,15 +1,13 @@
 {
   "name": "engineering-workflow",
-  "version": "0.3.1",
-  "description": "Personal engineering workflow skills for Codex: operating defaults, alignment gate, agent dispatch, TDD, systematic debugging, design alternatives, subagent review, and compounded learnings.",
+  "version": "0.4.0",
+  "description": "Personal engineering workflow skills for Codex: operating defaults, TDD, systematic debugging, design alternatives, subagent review, and compounded learnings.",
   "author": {
     "name": "Harry"
   },
   "license": "MIT",
   "keywords": [
     "engineering",
-    "alignment",
-    "dispatch",
     "tdd",
     "debugging",
     "design",
@@ -20,8 +18,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Engineering Workflow",
-    "shortDescription": "Codex operating defaults, alignment, dispatch, TDD, debugging, design alternatives, review, and learning capture.",
-    "longDescription": "A personal engineering workflow plugin that packages reusable Codex skills for correctness-first development: an alignment gate before non-trivial edits, observable triggers for dispatching subagents, test-driven behavior changes, systematic debugging, parallel design-space exploration, subagent review, and durable session learning capture.",
+    "shortDescription": "Codex operating defaults, TDD, debugging, design alternatives, review, and learning capture.",
+    "longDescription": "A personal engineering workflow plugin that packages reusable Codex skills for correctness-first development: operating defaults, test-driven behavior changes, systematic debugging, parallel design-space exploration, subagent review, and durable session learning capture.",
     "developerName": "Harry",
     "category": "Productivity",
     "capabilities": [
@@ -31,7 +29,6 @@
     ],
     "defaultPrompt": [
       "Use engineering workflow for this task.",
-      "Align requirements before editing.",
       "Explore design alternatives for this interface.",
       "Compound durable learnings from this session."
     ],

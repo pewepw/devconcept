@@ -10,7 +10,6 @@ On the first user message of any session:
 1. Invoke the `engineering-defaults` skill via the Skill tool.
 2. Follow its rules for the rest of the session.
 3. Do not re-invoke — its body persists in context after the first load. Re-invoking burns context for no gain.
-4. For the first non-trivial request in the session, invoke `aligning-requirements` before any Edit/Write.
 
 ## Why this exists
 

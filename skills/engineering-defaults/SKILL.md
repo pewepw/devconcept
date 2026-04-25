@@ -27,7 +27,7 @@ For trivial, low-risk work, use judgment. Ceremony that costs more than the chan
 
 For non-trivial work:
 
-1. Clarify the root goal and affected surface. For non-trivial requests, use the `aligning-requirements` skill to post an alignment block and wait for confirmation before editing.
+1. Clarify the root goal and affected surface.
 2. Read the smallest useful slice of repo context.
 3. Define observable success criteria and the verification that would prove them.
 4. Write a short spec before editing when the work is multi-file, behavior-changing, or architecturally uncertain. Spec shape: **Goal / Files touched / Intended change / Verification / Rollback**. Keep it inline in chat by default; commit to a file only if the decisions in it need to outlive the task.
@@ -68,8 +68,6 @@ For non-trivial work:
 
 ## Specific Skill Triggers
 
-- Invoke `aligning-requirements` before the first Edit/Write on any non-trivial request. Skip only for trivial mechanical edits or when plan mode is active.
-- Invoke `dispatching-agents` when any of its observable triggers hits: reading ≥2 unfamiliar files, ≥3 independent failures, long research, or expected tool output >~50 lines.
 - Default to test-first thinking for bug fixes and behavior-heavy changes. In this environment, that usually maps to the `tdd` skill.
 - Invoke `design-alternatives` when a non-trivial refactor or new interface has real tradeoffs and the right shape isn't forced by repo convention.
 - Escalate to a structured debug loop when a first fix didn't hold or the bug is intermittent, cross-module, or has no clean repro. In this environment, that usually maps to the `systematic-debugging` skill.
@@ -87,7 +85,9 @@ For non-trivial work:
 
 - Match process to risk. Small mechanical edits can proceed directly.
 - If scope starts widening, separate exploration from implementation and keep only the necessary facts in working context.
-- For delegation to subagents, use the `dispatching-agents` skill — it lists the observable triggers (≥2 unfamiliar files, ≥3 independent failures, long research, heavy tool output) and the prompt rules.
+- Delegate to helper agents or parallel workers when they would reduce context load. Parallel-dispatch only when problem domains are independent and do not share state; never for failures that might share a root cause.
+- When dispatching, each agent prompt must be self-contained: include file paths, error text, and the explicit deliverable. Vague scopes ("fix the tests") produce vague results.
+- When three or more independent failures appear across unrelated files, default to parallel dispatch rather than sequential investigation.
 - If delegation is unavailable, do the work in a separate pass yourself.
 - Batch independent reads and searches when possible.
 
@@ -141,7 +141,6 @@ For non-trivial work:
 - Use diffs and code references to support the summary, not replace it.
 - State every skill used in the final summary. If a skill materially shaped the work, briefly state how.
 - State any obvious or default-trigger `engineering-workflow` skill not used in the final summary, with a concise reason. If there were no relevant skipped `engineering-workflow` skills, state that none were intentionally skipped.
-- Distinguish **skipped** from **missed**. If a default-trigger skill's observable conditions appeared to hit during the work but the skill was not loaded, name it explicitly as a miss, not a skip. This is feedback for trigger tuning — under-firing is the common failure mode and silent under-fires can't be fixed.
 
 ## When Stuck
 
