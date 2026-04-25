@@ -1,6 +1,6 @@
 {
   "name": "engineering-workflow",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Personal engineering workflow skills for Codex: operating defaults, alignment gate, agent dispatch, TDD, systematic debugging, design alternatives, subagent review, and compounded learnings.",
   "author": {
     "name": "Harry"

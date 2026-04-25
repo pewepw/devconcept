@@ -141,6 +141,7 @@ For non-trivial work:
 - Use diffs and code references to support the summary, not replace it.
 - State every skill used in the final summary. If a skill materially shaped the work, briefly state how.
 - State any obvious or default-trigger `engineering-workflow` skill not used in the final summary, with a concise reason. If there were no relevant skipped `engineering-workflow` skills, state that none were intentionally skipped.
+- Distinguish **skipped** from **missed**. If a default-trigger skill's observable conditions appeared to hit during the work but the skill was not loaded, name it explicitly as a miss, not a skip. This is feedback for trigger tuning — under-firing is the common failure mode and silent under-fires can't be fixed.
 
 ## When Stuck
 

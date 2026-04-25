@@ -12,7 +12,7 @@
       "name": "engineering-workflow",
       "source": "./",
       "description": "Personal engineering workflow skills: operating defaults, alignment gate, agent dispatch, TDD, systematic debugging, design alternatives, subagent review, and compounded learnings.",
-      "version": "0.3.0",
+      "version": "0.3.1",
       "category": "development",
       "strict": false
     }
