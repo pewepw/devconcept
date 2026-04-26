@@ -5,7 +5,7 @@ description: Use on the first user message of any session — invokes engineerin
 
 # Using Engineering Defaults
 
-On the first user message of any session:
+On the first user message of any session, this is the first action. Do not inspect the repo, run `rg`, read files, summarize the task, or ask clarifying questions before this bootstrap.
 
 1. Load the `engineering-defaults` skill body through the platform's skill mechanism.
 2. If no skill-loading tool is available, read/open the sibling file `../engineering-defaults/SKILL.md` directly before doing anything else.
@@ -21,3 +21,4 @@ Without this bootstrap, core operating rules (correctness gate, verification, co
 - Re-invoking `engineering-defaults` after turn 1.
 - Answering, exploring, or clarifying before invoking on turn 1.
 - Paraphrasing the rules from memory instead of loading them.
+- Treating "I'll inspect first" as harmless. The bootstrap is intentionally before inspection so the inspection itself follows the workflow.

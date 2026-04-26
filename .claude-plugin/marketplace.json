@@ -11,8 +11,8 @@
     {
       "name": "engineering-workflow",
       "source": "./",
-      "description": "Personal engineering workflow skills: operating defaults, requirements alignment, lightweight planning, agent dispatch, TDD, debugging, design alternatives, review, finishing, and compounded learnings.",
-      "version": "0.5.2",
+      "description": "Personal engineering workflow skills: first-action operating defaults, requirements alignment, lightweight planning, agent dispatch, observable TDD, debugging, design alternatives, review, finishing, and compounded learnings.",
+      "version": "0.5.3",
       "category": "development",
       "strict": false
     }

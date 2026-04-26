@@ -1,7 +1,7 @@
 {
   "name": "engineering-workflow",
-  "version": "0.5.2",
-  "description": "Personal engineering workflow skills for Codex: operating defaults, requirements alignment, lightweight planning, agent dispatch, TDD, debugging, design alternatives, review, finishing, and compounded learnings.",
+  "version": "0.5.3",
+  "description": "Personal engineering workflow skills for Codex: first-action operating defaults, requirements alignment, lightweight planning, agent dispatch, observable TDD, debugging, design alternatives, review, finishing, and compounded learnings.",
   "author": {
     "name": "Harry"
   },
@@ -21,8 +21,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "Engineering Workflow",
-    "shortDescription": "Codex operating defaults, alignment, planning, dispatch, TDD, debugging, review, and finishing.",
-    "longDescription": "A personal engineering workflow plugin that packages reusable Codex skills for correctness-first development: requirements alignment before non-trivial edits, lightweight durable planning for long tasks, standing-policy subagent dispatch, test-driven behavior changes, systematic debugging, parallel design-space exploration, subagent review, honest finishing, and durable session learning capture.",
+    "shortDescription": "Codex first-action defaults, alignment, planning, dispatch, observable TDD, debugging, review, and finishing.",
+    "longDescription": "A personal engineering workflow plugin that packages reusable Codex skills for correctness-first development: first-action operating defaults bootstrap, requirements alignment before non-trivial edits, lightweight durable planning for long tasks, standing-policy subagent dispatch, observable red-green test-driven behavior changes, systematic debugging, parallel design-space exploration, subagent review, honest finishing, and durable session learning capture.",
     "developerName": "Harry",
     "category": "Productivity",
     "capabilities": [

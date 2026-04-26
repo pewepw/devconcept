@@ -21,6 +21,14 @@ Also record:
 
 Passing target: average score >= 3.25 with no 0 or 1.
 
+For any transcript-level score, a 4 requires:
+
+- `using-engineering-defaults`/`engineering-defaults` was loaded before the assistant's first repo inspection, task analysis, or clarifying question.
+- Any bug fix or behavior-heavy implementation that claims `tdd` has observable RED evidence before production edits, or explicitly says before coding why a practical behavior test is unavailable.
+- Skipped default-trigger skills are named before coding when the skip is knowable from the current scope.
+
+If those are missed but the session is otherwise well-scoped and verified, cap the score at 3.
+
 ## Eval 1: Trivial Mechanical Edit
 
 **Prompt**
@@ -31,6 +39,7 @@ In the settings screen, rename the button label from "Save" to "Apply".
 
 **Expected behavior**
 
+- Load `engineering-defaults` before inspecting files.
 - Inspect likely file if path is not provided.
 - No alignment block unless scope becomes ambiguous.
 - No `planning-ledger`.
@@ -58,10 +67,11 @@ Checkout cancellation is not refunding merchandise that was already paid for in 
 
 **Expected behavior**
 
+- Load `engineering-defaults` before inspecting files.
 - Gather minimal context first: cancellation flow, refund path, nearby tests.
 - Use `aligning-requirements` before editing.
 - Ask only questions that code cannot answer cheaply.
-- Use `tdd` if there is a practical behavior test surface.
+- Use `tdd` if there is a practical behavior test surface, with at least one observed RED before production edits.
 - Use `finishing-work` before handoff.
 
 **Expected skills**
@@ -86,6 +96,7 @@ Add team invites.
 
 **Expected behavior**
 
+- Load `engineering-defaults` before inspecting files.
 - Inspect repo structure and existing auth/team/user concepts.
 - Post an alignment block with scope and open questions before edits.
 - Do not invent product details silently.
@@ -111,11 +122,13 @@ Add usage-based billing with Stripe webhooks, an admin usage dashboard, and test
 
 **Expected behavior**
 
+- Load `engineering-defaults` before inspecting files.
 - Use read-only exploration, possibly via explorer subagents.
 - Use `aligning-requirements`.
 - Use `planning-ledger` because the work is multi-phase and cross-system.
 - Identify vertical slices and verification per slice.
 - Use `dispatching-agents` only for independent exploration or disjoint work.
+- For behavior slices using `tdd`, show one RED before each production implementation slice unless impractical.
 
 **Expected skills**
 
@@ -141,6 +154,7 @@ These unrelated test files are failing: auth-token-refresh.test.ts, csv-export.t
 
 **Expected behavior**
 
+- Load `engineering-defaults` before inspecting files.
 - Confirm the failures are likely independent before parallelizing.
 - Use `dispatching-agents` for parallel workers if write ownership is disjoint.
 - Use `subagent-review` for any code-writing worker output.
@@ -168,11 +182,12 @@ After refactoring auth middleware, five auth tests fail across different files. 
 
 **Expected behavior**
 
+- Load `engineering-defaults` before inspecting files.
 - Do not parallelize the fixes initially.
 - Reproduce/read exact failures.
 - Treat as one likely shared-root-cause debugging task.
 - Use `systematic-debugging` if the cause is not obvious.
-- Add/adjust tests through public behavior when practical.
+- Add/adjust tests through public behavior when practical, with observed RED before implementation when using `tdd`.
 
 **Expected skills**
 
@@ -196,6 +211,7 @@ Design the API for a plugin installation manager. It needs to support local dire
 
 **Expected behavior**
 
+- Load `engineering-defaults` before inspecting files.
 - Gather hard constraints and callers.
 - Use `design-alternatives`.
 - Use subagents if available; otherwise run three inline design passes.
@@ -222,6 +238,7 @@ The implementation is done. Summarize what changed and whether it is ready.
 
 **Expected behavior**
 
+- Load `engineering-defaults` before inspecting files or diffs.
 - Re-read request/plan if available.
 - Check diff or changed files.
 - Verify with relevant command(s), or state why verification is blocked.
@@ -248,6 +265,7 @@ We discovered every tenant data mutation must go through backend APIs, never dir
 
 **Expected behavior**
 
+- Load `engineering-defaults` before inspecting files.
 - Use `compound-engineering`.
 - Update the canonical instruction file only if the learning is not already present.
 - Keep the entry short, repo-wide, and categorized.
@@ -271,6 +289,7 @@ I do not know the billing module. Map the relevant files, callers, and data flow
 
 **Expected behavior**
 
+- Load `engineering-defaults` before inspecting files.
 - No alignment block because it is read-only.
 - Use read-only exploration; use explorer subagents if many files are involved.
 - Return concise map with file paths and uncertainty.

@@ -57,6 +57,8 @@ Ask: "What should the public interface look like? Which behaviors are most impor
 
 **You can't test everything.** Confirm with the user exactly which behaviors matter most. Focus testing effort on critical paths and complex logic, not every possible edge case.
 
+Before editing production code, state the first behavior test you will make fail and the command you expect to run. If no practical behavior test exists, state that before coding and treat later checks as verification rather than TDD.
+
 ### 2. Tracer Bullet
 
 Write ONE test that confirms ONE thing about the system:
@@ -67,6 +69,8 @@ GREEN: Write minimal code to pass → test passes
 ```
 
 This is your tracer bullet - proves the path works end-to-end.
+
+The RED step must be observable in the session: run the narrow test command and record the failing command/result before editing implementation. A test added after the implementation is useful verification, but it does not count as TDD and must be reported as test-after.
 
 ### 3. Incremental Loop
 
@@ -101,6 +105,7 @@ After all tests pass, look for [refactor candidates](refactoring.md):
 ```
 [ ] Test describes behavior, not implementation
 [ ] Test uses public interface only
+[ ] RED evidence was observed before implementation, or TDD was explicitly marked impractical
 [ ] Test would survive internal refactor
 [ ] Code is minimal for this test
 [ ] No speculative features added

@@ -25,6 +25,8 @@ For trivial, low-risk work, use judgment. Ceremony that costs more than the chan
 
 ## Operating Loop
 
+Session bootstrap is part of the loop: on the first user message, `using-engineering-defaults` must load this file before any repo inspection, tool search, or task commentary. If that did not happen, name it as a miss in the final summary instead of treating a later load as compliant.
+
 For non-trivial work:
 
 1. Clarify the root goal and affected surface.
@@ -72,7 +74,7 @@ For non-trivial work:
 - Invoke `aligning-requirements` before the first Edit/Write or mutating/state-changing Bash on any non-trivial request, after minimal context gathering. Skip only for trivial mechanical edits, read-only work, or active plan mode.
 - Invoke `planning-ledger` for long-running, multi-phase, research-heavy, multi-agent, or context-compaction-prone work. Do not use it for normal small edits where an inline mini-spec is enough.
 - Invoke `dispatching-agents` when its observable triggers hit: multiple unfamiliar files, independent failures, long research, heavy output, or parallel implementation slices. Read-only explorers may be automatic under the standing policy; code-writing workers require clear disjoint ownership.
-- Default to test-first thinking for bug fixes and behavior-heavy changes. In this environment, that usually maps to the `tdd` skill.
+- Default to test-first thinking for bug fixes and behavior-heavy changes. In this environment, that usually maps to the `tdd` skill. If `tdd` is used, produce observable RED evidence before implementation whenever a practical behavior test surface exists; tests written only after the code are verification, not TDD.
 - Invoke `design-alternatives` directly when a non-trivial refactor or new interface has real tradeoffs and the right shape isn't forced by repo convention.
 - Escalate to a structured debug loop when a first fix didn't hold or the bug is intermittent, cross-module, or has no clean repro. In this environment, that usually maps to the `systematic-debugging` skill.
 - Review implementer-subagent output against the original spec before reporting done. In this environment, that usually maps to the `subagent-review` skill.

@@ -1,7 +1,7 @@
 {
   "name": "engineering-workflow",
-  "version": "0.5.2",
-  "description": "Personal engineering workflow skills for Claude Code: operating defaults, requirements alignment, lightweight planning, agent dispatch, TDD, debugging, design alternatives, review, finishing, and compounded learnings.",
+  "version": "0.5.3",
+  "description": "Personal engineering workflow skills for Claude Code: first-action operating defaults, requirements alignment, lightweight planning, agent dispatch, observable TDD, debugging, design alternatives, review, finishing, and compounded learnings.",
   "author": {
     "name": "Harry"
   }
