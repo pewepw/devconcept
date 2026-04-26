@@ -29,7 +29,7 @@ Skip for:
 Create one file by default:
 
 ```text
-.engineering-workflow/plans/YYYY-MM-DD-<slug>.md
+.devconcept/plans/YYYY-MM-DD-<slug>.md
 ```
 
 Only split into separate `findings.md` or `progress.md` files if the task becomes research-heavy enough that one ledger is hard to scan.
@@ -68,6 +68,28 @@ Only split into separate `findings.md` or `progress.md` files if the task become
 - <timestamp or short entry>
 ```
 
+## Expected Output
+
+For inline plans:
+
+```md
+Plan:
+- Goal:
+- Steps:
+- Files / areas:
+- Verification:
+- Risks:
+```
+
+For durable planning:
+
+```md
+Created/updated plan: .devconcept/plans/<file>.md
+Current phase:
+Next action:
+Open risks:
+```
+
 ## Rules
 
 - Keep the ledger concise. It is a coordination artifact, not a transcript.
@@ -78,4 +100,4 @@ Only split into separate `findings.md` or `progress.md` files if the task become
 
 ## Handoff
 
-Use `engineering-defaults` for implementation discipline and `finishing-work` for completion. Use `compound-engineering` only for durable repo-wide lessons, not routine ledger notes.
+Use `devconcept-core` for implementation discipline and `finishing-work` for completion. Use `compound-engineering` only for durable repo-wide lessons, not routine ledger notes.

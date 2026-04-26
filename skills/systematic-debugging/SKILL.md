@@ -20,6 +20,8 @@ Skip for mechanical failures with an obvious cause (typo, missing import, clear 
 
 ## The Loop
 
+When a dedicated debugger agent is useful and the runtime allows it, use `devconcept-debugger` for failure diagnosis before fixes. If not, run the same loop inline.
+
 ### 1. Reproduce
 
 - State the exact symptom in one sentence, with the input that triggers it.
@@ -49,7 +51,7 @@ Skip for mechanical failures with an obvious cause (typo, missing import, clear 
 
 If three fix attempts inside this loop fail, or each fix reveals a new failure somewhere else, stop editing. The problem is not in the current change — it's in the architecture, the abstraction, or an assumption you haven't verified. Surface this and reassess before a fourth attempt.
 
-Count resets when you enter the loop: the failed fix that triggered escalation from `engineering-defaults` is not strike one. You get three inside the loop.
+Count resets when you enter the loop: the failed fix that triggered escalation from `devconcept-core` is not strike one. You get three inside the loop.
 
 ## Red Flags
 
@@ -63,3 +65,17 @@ Count resets when you enter the loop: the failed fix that triggered escalation f
 ## Handoff
 
 Report the root cause, the evidence that confirmed it, and the minimal fix — not the sequence of attempts. If the fix revealed a reusable repo rule or anti-pattern, route it through `compound-engineering`.
+
+## Expected Output
+
+```md
+Symptom:
+Reproduction:
+Known-good comparison:
+Hypothesis:
+Probe:
+Result:
+Root cause:
+Fix:
+Verification:
+```

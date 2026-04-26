@@ -50,16 +50,41 @@ Post this in chat and stop:
 
 Wait for an explicit yes, correction, or answer to open questions. Silence is not approval.
 
+## Expected Output
+
+For Standard and Full Mode work before edits:
+
+```md
+Understanding:
+- ...
+
+Scope:
+- ...
+
+Open questions:
+- ...
+
+Proposed approach:
+- ...
+
+Ready to proceed?
+```
+
+Rules:
+- Do not print this for Lean Mode exact edits.
+- Ask only questions that would change implementation direction.
+- If no open questions exist, write `Open questions: None.`
+
 ## Rules
 
 - If the answer can be found cheaply in code, inspect code instead of asking.
 - If the user's response changes scope, post a short addendum before editing.
 - If the user says "just do it" or otherwise opts out, proceed and state that you are proceeding without the alignment pause.
-- Keep implementation details out of the alignment block. Mini-spec belongs in `engineering-defaults`; durable planning belongs in `planning-ledger`.
+- Keep implementation details out of the alignment block. Mini-spec belongs in `devconcept-core`; durable planning belongs in `planning-ledger`.
 
 ## Handoff
 
-After confirmation, proceed under `engineering-defaults`:
+After confirmation, proceed under `devconcept-core`:
 
 - For normal non-trivial work, write the inline mini-spec there.
 - For behavior-heavy changes, use `tdd`.

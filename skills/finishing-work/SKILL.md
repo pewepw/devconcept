@@ -43,6 +43,28 @@ Keep the final response human-friendly:
 
 If subagents wrote code, mention that their output was reviewed through `subagent-review`.
 
+## Expected Output
+
+```md
+Changed:
+- ...
+
+Verified:
+- command/result, file/line proof, or blocked + reason
+
+Risk / not done:
+- ...
+
+Review first:
+- ...
+
+Skills / agents used:
+- ...
+
+Relevant skipped or missed workflow:
+- ...
+```
+
 ## Git / PR Options
 
 Only offer merge, commit, push, or PR next steps when the user asked for git workflow or the task naturally ends at integration. Never discard, reset, or force-push without explicit confirmation.

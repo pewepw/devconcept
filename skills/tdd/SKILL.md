@@ -110,3 +110,16 @@ After all tests pass, look for [refactor candidates](refactoring.md):
 [ ] Code is minimal for this test
 [ ] No speculative features added
 ```
+
+## Expected Output
+
+```md
+Behavior under test:
+RED:
+- test/command/result
+GREEN:
+- change made
+- test/command/result
+Refactor:
+- done | skipped + reason
+```

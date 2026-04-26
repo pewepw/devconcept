@@ -105,6 +105,15 @@ Compounded 3 learnings → AGENTS.md
   + [Decision] Carry-forward leave 90-day expiry
 ```
 
+## Expected Output
+
+```md
+Compounded <N> learnings -> <file>
+  + [Category] <summary>
+```
+
+If no durable repo-wide learning was captured, say why no instruction file was changed.
+
 ## Rules
 
 - **No duplicates** — if the concept already exists anywhere in the file, skip it

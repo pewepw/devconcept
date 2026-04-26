@@ -1,7 +1,7 @@
 {
-  "name": "engineering-workflow",
-  "version": "0.5.3",
-  "description": "Personal engineering workflow skills for Codex: first-action operating defaults, requirements alignment, lightweight planning, agent dispatch, observable TDD, debugging, design alternatives, review, finishing, and compounded learnings.",
+  "name": "devconcept",
+  "version": "0.6.0",
+  "description": "DevConcept for Codex: Lean, Standard, and Full workflow routing; requirements alignment; planning; Codex agent templates; observable TDD; debugging; review; finishing; and compounded learnings.",
   "author": {
     "name": "Harry"
   },
@@ -16,13 +16,14 @@
     "design",
     "review",
     "codex",
-    "workflow"
+    "workflow",
+    "devconcept"
   ],
   "skills": "./skills/",
   "interface": {
-    "displayName": "Engineering Workflow",
-    "shortDescription": "Codex first-action defaults, alignment, planning, dispatch, observable TDD, debugging, review, and finishing.",
-    "longDescription": "A personal engineering workflow plugin that packages reusable Codex skills for correctness-first development: first-action operating defaults bootstrap, requirements alignment before non-trivial edits, lightweight durable planning for long tasks, standing-policy subagent dispatch, observable red-green test-driven behavior changes, systematic debugging, parallel design-space exploration, subagent review, honest finishing, and durable session learning capture.",
+    "displayName": "DevConcept",
+    "shortDescription": "Lean, Standard, and Full senior-engineering workflow routing for Codex.",
+    "longDescription": "DevConcept packages reusable Codex skills for correctness-first development: Lean / Standard / Full mode routing, first-action core bootstrap, requirements alignment before non-trivial edits, lightweight durable planning for long tasks, runtime-aware subagent dispatch, Codex agent templates, observable red-green test-driven behavior changes, systematic debugging, parallel design-space exploration, plan review, subagent review, honest finishing, and durable session learning capture.",
     "developerName": "Harry",
     "category": "Productivity",
     "capabilities": [
@@ -31,9 +32,10 @@
       "Code"
     ],
     "defaultPrompt": [
-      "Use engineering workflow for this task.",
+      "Use DevConcept for this task.",
+      "Route the task through Lean, Standard, or Full mode.",
       "Align requirements before non-trivial edits.",
-      "Use subagents when dispatch triggers hit.",
+      "Use subagents when dispatch triggers hit and the runtime/user instructions allow them.",
       "Use a planning ledger for long-running work.",
       "Explore design alternatives for this interface.",
       "Compound durable learnings from this session."

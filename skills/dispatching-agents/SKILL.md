@@ -1,6 +1,6 @@
 ---
 name: dispatching-agents
-description: Use when engineering-workflow is active and dispatch triggers hit: multiple unfamiliar files, independent failures, long research, heavy tool output, or parallelizable implementation slices. Defines standing permission, when to use read-only explorers, when to use code-writing workers, and mandatory review.
+description: Use when DevConcept is active and dispatch triggers hit: multiple unfamiliar files, independent failures, long research, heavy tool output, or parallelizable implementation slices. Defines standing permission, runtime recipes, context-budget rules, and mandatory review.
 ---
 
 # Dispatching Agents
@@ -11,7 +11,7 @@ Protect the main context window and shorten wall-clock time. Dispatch is a tool,
 
 ## Standing Policy
 
-When `engineering-workflow` is active, the user has granted standing permission to consider subagents under these rules:
+When DevConcept is active, the user has granted standing permission to consider subagents under these rules:
 
 - **Read-only explorer agents:** allowed automatically when dispatch triggers hit.
 - **Parallel research agents:** allowed automatically when questions are independent.
@@ -31,6 +31,59 @@ Dispatch when any trigger hits and the work can be bounded:
 - **Design tradeoffs:** use `design-alternatives` instead; it owns design-space dispatch.
 
 Skip dispatch for known files, single-file edits, output you must inspect verbatim, shared-root-cause debugging, or any task where dispatch overhead exceeds the value.
+
+## Runtime Dispatch Recipes
+
+### Claude Code
+
+When dispatch triggers hit, prefer named DevConcept agents:
+- `devconcept-explorer` for read-only codebase mapping
+- `devconcept-plan-reviewer` for requirement or plan review
+- `devconcept-worker` for bounded, disjoint implementation slices
+- `devconcept-code-reviewer` for independent review of diffs
+- `devconcept-debugger` for failure diagnosis before fixes
+
+If DevConcept agents are unavailable, use the closest built-in agent or inline the same prompt contract.
+
+### Codex
+
+Codex does not spawn subagents unless explicitly asked in the conversation. When dispatch triggers hit and subagents are allowed, say the dispatch request literally.
+
+Example:
+
+```md
+Spawn one subagent per area, wait for all of them, and return a consolidated summary. Use read-only exploration only.
+
+Areas:
+1. <area A>
+2. <area B>
+3. <area C>
+
+Each subagent must return: Findings, Relevant files, Risks / unknowns, Recommended next step.
+```
+
+If the current Codex session does not allow subagents, continue inline using the same contracts and report that dispatch was skipped because subagents were unavailable.
+
+## Context-Budget Dispatch Rules
+
+Dispatch read-only explorers when:
+- multiple unfamiliar subsystems must be understood
+- implementation and investigation are separable
+- likely more than five files need inspection
+- independent areas can be mapped without conflicting edits
+- the main context would be polluted by broad search results
+
+Dispatch workers only when:
+- the plan is approved or clearly bounded
+- each worker owns a disjoint slice
+- file ownership is clear
+- integration can be reviewed by the main agent
+
+Do not dispatch code-writing workers when:
+- failures likely share one root cause
+- the architecture decision is unresolved
+- two workers may edit the same files
+- the task is small enough for the main agent to do safely
 
 ## Critical Path Rule
 
@@ -73,3 +126,14 @@ Examples:
 - Read diffs for any code-writing worker.
 - Use `subagent-review` before accepting subagent-produced code or reporting done.
 - Run the strongest relevant integrated verification after merging results.
+
+## Expected Output
+
+```md
+Dispatch decision: dispatch | do not dispatch
+Reason:
+Agents / slices:
+- agent: purpose, ownership, read/write permission
+Local critical-path work:
+Integration plan:
+```
