@@ -40,7 +40,7 @@ Do not sketch a design yet. The frame goes to every subagent verbatim.
 
 ### 2. Dispatch Three Agents In Parallel
 
-If subagents are available, use them for this step. If not, run the same three design passes yourself inline, one constraint at a time, and label the result as the inline fallback. Do not skip the comparison just because subagents are unavailable.
+If subagents are available, prefer DevConcept agents or equivalent inline contracts for this step. If not, run the same three design passes yourself inline, one constraint at a time, and label the result as the inline fallback. Do not skip the comparison just because subagents are unavailable.
 
 Each agent gets the frame plus **one** distinct design constraint. Pick three axes that actually differ for this problem:
 
@@ -64,8 +64,25 @@ When dispatching, send all agents in a single message. Sequential dispatch defea
 ### 4. Hand Off
 
 - Show the user the comparison and recommendation; let them pick.
-- Once a shape is chosen, implementation follows `engineering-defaults` (mini-spec, vertical slice).
+- Once a shape is chosen, implementation follows `devconcept-core` (mini-spec, vertical slice).
 - If the choice encodes a durable repo rule ("we commit to ports-and-adapters for I/O boundaries"), route through `compound-engineering`.
+
+## Expected Output
+
+```md
+Frame:
+- Goal:
+- Hard constraints:
+- Negotiable choices:
+
+Design A:
+Design B:
+Design C:
+
+Comparison:
+Recommendation: <X> because <Y>, accepting <Z>.
+Decision needed from user:
+```
 
 ## Red Flags
 

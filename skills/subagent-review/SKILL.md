@@ -59,3 +59,20 @@ Question: **Would this pass review from a careful teammate on this repo?**
 ## Handoff
 
 Report what the subagent changed and what the review caught (or didn't). If you accepted scope drift, say so explicitly and why.
+
+## Expected Output
+
+```md
+Stage 1 - Spec compliance: pass | fail
+Evidence:
+- requirement -> diff/file evidence
+Scope drift:
+- ...
+
+Stage 2 - Code quality: pass | fail
+Issues:
+- ...
+
+Decision:
+- accept | revise locally | send back to subagent
+```

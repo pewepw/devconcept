@@ -1,6 +1,6 @@
-# Engineering Workflow Evals
+# DevConcept Manual Evals
 
-Use these evals to test whether `engineering-workflow` improves real coding sessions without adding pointless ceremony. They are not runtime instructions. Run them manually, with an evaluator agent, or against saved transcripts after plugin changes.
+Use these manual evals to test whether DevConcept improves real coding sessions without adding pointless ceremony. They are not runtime instructions, fixture tests, or an executable eval harness. Run them manually, with an evaluator agent, or against saved transcripts after plugin changes.
 
 ## Scoring
 
@@ -23,7 +23,7 @@ Passing target: average score >= 3.25 with no 0 or 1.
 
 For any transcript-level score, a 4 requires:
 
-- `using-engineering-defaults`/`engineering-defaults` was loaded before the assistant's first repo inspection, task analysis, or clarifying question.
+- `using-devconcept` / `devconcept-core` was loaded before the assistant's first repo inspection, task analysis, or clarifying question.
 - Any bug fix or behavior-heavy implementation that claims `tdd` has observable RED evidence before production edits, or explicitly says before coding why a practical behavior test is unavailable.
 - Skipped default-trigger skills are named before coding when the skip is knowable from the current scope.
 
@@ -39,7 +39,7 @@ In the settings screen, rename the button label from "Save" to "Apply".
 
 **Expected behavior**
 
-- Load `engineering-defaults` before inspecting files.
+- Load `using-devconcept` / `devconcept-core` before inspecting files.
 - Inspect likely file if path is not provided.
 - No alignment block unless scope becomes ambiguous.
 - No `planning-ledger`.
@@ -48,7 +48,8 @@ In the settings screen, rename the button label from "Save" to "Apply".
 
 **Expected skills**
 
-- `engineering-defaults`
+- `using-devconcept`
+- `devconcept-core`
 - `finishing-work` if code is changed
 
 **Forbidden skills**
@@ -67,7 +68,7 @@ Checkout cancellation is not refunding merchandise that was already paid for in 
 
 **Expected behavior**
 
-- Load `engineering-defaults` before inspecting files.
+- Load `using-devconcept` / `devconcept-core` before inspecting files.
 - Gather minimal context first: cancellation flow, refund path, nearby tests.
 - Use `aligning-requirements` before editing.
 - Ask only questions that code cannot answer cheaply.
@@ -76,7 +77,8 @@ Checkout cancellation is not refunding merchandise that was already paid for in 
 
 **Expected skills**
 
-- `engineering-defaults`
+- `using-devconcept`
+- `devconcept-core`
 - `aligning-requirements`
 - `tdd` unless tests are impractical and that is stated
 - `finishing-work`
@@ -96,7 +98,7 @@ Add team invites.
 
 **Expected behavior**
 
-- Load `engineering-defaults` before inspecting files.
+- Load `using-devconcept` / `devconcept-core` before inspecting files.
 - Inspect repo structure and existing auth/team/user concepts.
 - Post an alignment block with scope and open questions before edits.
 - Do not invent product details silently.
@@ -104,7 +106,8 @@ Add team invites.
 
 **Expected skills**
 
-- `engineering-defaults`
+- `using-devconcept`
+- `devconcept-core`
 - `aligning-requirements`
 
 **Forbidden skills**
@@ -122,7 +125,7 @@ Add usage-based billing with Stripe webhooks, an admin usage dashboard, and test
 
 **Expected behavior**
 
-- Load `engineering-defaults` before inspecting files.
+- Load `using-devconcept` / `devconcept-core` before inspecting files.
 - Use read-only exploration, possibly via explorer subagents.
 - Use `aligning-requirements`.
 - Use `planning-ledger` because the work is multi-phase and cross-system.
@@ -132,7 +135,8 @@ Add usage-based billing with Stripe webhooks, an admin usage dashboard, and test
 
 **Expected skills**
 
-- `engineering-defaults`
+- `using-devconcept`
+- `devconcept-core`
 - `aligning-requirements`
 - `planning-ledger`
 - `dispatching-agents` if subagent-capable and independent domains exist
@@ -154,7 +158,7 @@ These unrelated test files are failing: auth-token-refresh.test.ts, csv-export.t
 
 **Expected behavior**
 
-- Load `engineering-defaults` before inspecting files.
+- Load `using-devconcept` / `devconcept-core` before inspecting files.
 - Confirm the failures are likely independent before parallelizing.
 - Use `dispatching-agents` for parallel workers if write ownership is disjoint.
 - Use `subagent-review` for any code-writing worker output.
@@ -162,7 +166,8 @@ These unrelated test files are failing: auth-token-refresh.test.ts, csv-export.t
 
 **Expected skills**
 
-- `engineering-defaults`
+- `using-devconcept`
+- `devconcept-core`
 - `dispatching-agents`
 - `subagent-review` if workers write code
 - `finishing-work`
@@ -182,7 +187,7 @@ After refactoring auth middleware, five auth tests fail across different files. 
 
 **Expected behavior**
 
-- Load `engineering-defaults` before inspecting files.
+- Load `using-devconcept` / `devconcept-core` before inspecting files.
 - Do not parallelize the fixes initially.
 - Reproduce/read exact failures.
 - Treat as one likely shared-root-cause debugging task.
@@ -191,7 +196,8 @@ After refactoring auth middleware, five auth tests fail across different files. 
 
 **Expected skills**
 
-- `engineering-defaults`
+- `using-devconcept`
+- `devconcept-core`
 - `systematic-debugging` unless a clear one-line root cause exists
 - `tdd` if behavior-level regression test is practical
 - `finishing-work`
@@ -211,7 +217,7 @@ Design the API for a plugin installation manager. It needs to support local dire
 
 **Expected behavior**
 
-- Load `engineering-defaults` before inspecting files.
+- Load `using-devconcept` / `devconcept-core` before inspecting files.
 - Gather hard constraints and callers.
 - Use `design-alternatives`.
 - Use subagents if available; otherwise run three inline design passes.
@@ -220,7 +226,8 @@ Design the API for a plugin installation manager. It needs to support local dire
 
 **Expected skills**
 
-- `engineering-defaults`
+- `using-devconcept`
+- `devconcept-core`
 - `design-alternatives`
 
 **Forbidden skills**
@@ -238,7 +245,7 @@ The implementation is done. Summarize what changed and whether it is ready.
 
 **Expected behavior**
 
-- Load `engineering-defaults` before inspecting files or diffs.
+- Load `using-devconcept` / `devconcept-core` before inspecting files or diffs.
 - Re-read request/plan if available.
 - Check diff or changed files.
 - Verify with relevant command(s), or state why verification is blocked.
@@ -247,7 +254,8 @@ The implementation is done. Summarize what changed and whether it is ready.
 
 **Expected skills**
 
-- `engineering-defaults`
+- `using-devconcept`
+- `devconcept-core`
 - `finishing-work`
 
 **Forbidden skills**
@@ -265,13 +273,15 @@ We discovered every tenant data mutation must go through backend APIs, never dir
 
 **Expected behavior**
 
-- Load `engineering-defaults` before inspecting files.
+- Load `using-devconcept` / `devconcept-core` before inspecting files.
 - Use `compound-engineering`.
 - Update the canonical instruction file only if the learning is not already present.
 - Keep the entry short, repo-wide, and categorized.
 
 **Expected skills**
 
+- `using-devconcept`
+- `devconcept-core`
 - `compound-engineering`
 
 **Forbidden skills**
@@ -289,7 +299,7 @@ I do not know the billing module. Map the relevant files, callers, and data flow
 
 **Expected behavior**
 
-- Load `engineering-defaults` before inspecting files.
+- Load `using-devconcept` / `devconcept-core` before inspecting files.
 - No alignment block because it is read-only.
 - Use read-only exploration; use explorer subagents if many files are involved.
 - Return concise map with file paths and uncertainty.
@@ -297,7 +307,8 @@ I do not know the billing module. Map the relevant files, callers, and data flow
 
 **Expected skills**
 
-- `engineering-defaults`
+- `using-devconcept`
+- `devconcept-core`
 - `dispatching-agents` if the map requires multiple unfamiliar files
 
 **Forbidden skills**

@@ -1,207 +1,144 @@
-# Maintaining engineering-workflow
+# Maintaining DevConcept
 
-This plugin powers **both Claude Code and Codex CLI** from a single source tree:
+DevConcept powers both Claude Code and Codex from one source tree:
 
+```text
+/Users/harry/Desktop/BuiltByHarry/devconcept/   <- edit here
 ```
-~/Desktop/BuiltByHarry/engineering-workflow/   ← edit here (the dev clone)
-```
 
-Both tools point at this directory via symlinks. GitHub (`pewepw/engineering-workflow`) is used for backup/sharing, not runtime sourcing.
+Do not maintain the parent `/Users/harry/Desktop/BuiltByHarry/` duplicate. The `devconcept/` repo is the source of truth for plugin edits, releases, tags, cache syncs, and pushes.
 
-Do not maintain a second copy from `~/Desktop/BuiltByHarry/` itself. That parent directory may contain this dev clone as a nested folder, but the nested `engineering-workflow/` repository is the only source of truth for plugin edits, releases, tags, cache syncs, and pushes.
+The plugin install slug is `devconcept`. The product display name is **DevConcept**, the default operating skill is **devconcept-core**, and new agent assets use the `devconcept-` prefix.
 
-## Repo layout
+## Repo Layout
 
-```
+```text
 .
 ├── .claude-plugin/
-│   ├── plugin.json         # Claude Code plugin manifest
-│   └── marketplace.json    # Claude Code marketplace (single-plugin wrapper)
+│   ├── plugin.json
+│   └── marketplace.json
 ├── .codex-plugin/
-│   └── plugin.json         # Codex CLI plugin manifest (richer schema)
+│   └── plugin.json
+├── agents/
+│   ├── devconcept-code-reviewer.md
+│   ├── devconcept-debugger.md
+│   ├── devconcept-explorer.md
+│   ├── devconcept-plan-reviewer.md
+│   └── devconcept-worker.md
+├── docs/
+│   └── prd-devconcept-v0.6.md
+├── scripts/
+│   └── sync-codex-agents.sh
 ├── skills/
-│   ├── aligning-requirements/SKILL.md
-│   ├── compound-engineering/SKILL.md
-│   ├── design-alternatives/SKILL.md
-│   ├── dispatching-agents/SKILL.md
-│   ├── engineering-defaults/SKILL.md
-│   ├── finishing-work/SKILL.md
-│   ├── planning-ledger/SKILL.md
-│   ├── subagent-review/SKILL.md
-│   ├── systematic-debugging/SKILL.md
-│   ├── tdd/SKILL.md
-│   └── using-engineering-defaults/SKILL.md
-├── evals/
-│   └── engineering-workflow-evals.md
+│   ├── devconcept-core/SKILL.md
+│   ├── using-devconcept/SKILL.md
+│   └── ...
+├── templates/
+│   └── codex-agents/
 ├── README.md
-├── MAINTENANCE.md          # this file
-└── .gitignore
+└── MAINTENANCE.md
 ```
 
-Skills are shared — same `SKILL.md` file powers both Claude Code and Codex. Only the top-level manifests differ.
+## Runtime Wiring
 
-## How the wiring works
+- Claude Code marketplace: `~/.claude/plugins/marketplaces/built-by-harry/` symlinks to this dev clone.
+- Codex plugin dir: `~/.codex/plugins/devconcept/` symlinks to this dev clone.
+- Claude cache: `~/.claude/plugins/cache/built-by-harry/devconcept/<version>/`
+- Codex cache: `~/.codex/plugins/cache/built-by-harry/devconcept/<version>/`
 
-- **Claude Code:** marketplace at `~/.claude/plugins/marketplaces/built-by-harry/` is a symlink → this dev clone. Registered in `~/.claude/plugins/known_marketplaces.json` as `source_type: directory`.
-- **Codex CLI:** plugin dir at `~/.codex/plugins/engineering-workflow/` is a symlink → this dev clone. Registered in `~/.codex/config.toml` under `[marketplaces.built-by-harry]` (source `/Users/harry/.codex`), with a marketplace manifest at `~/.codex/.agents/plugins/marketplace.json` pointing at `./plugins/engineering-workflow`.
-  - **Caveat:** Codex's marketplace manifest lives *outside* this repo (at `~/.codex/.agents/plugins/marketplace.json`). If you rebuild Codex from scratch, you'll need to recreate that file and the `[marketplaces.built-by-harry]` block in `~/.codex/config.toml`. The exact contents as of 0.3.0 are in the "One-time setup" section below.
+The cache is versioned. Editing files alone does not force a cache rebuild; bump the manifests and refresh caches before release validation.
 
-Both tools copy from the source into a versioned cache:
-- Claude Code: `~/.claude/plugins/cache/built-by-harry/engineering-workflow/<version>/`
-- Codex CLI: `~/.codex/plugins/cache/built-by-harry/engineering-workflow/<version>/`
+## Claude Agent Behavior
 
-**The cache is versioned.** Editing a skill file alone does NOT force a cache rebuild — you must bump the version number in both `plugin.json` files first.
+Claude Code can discover plugin-provided agents from `agents/`. Keep the native set intentionally small:
 
-## Updating the plugin (standard flow)
+- `devconcept-explorer`
+- `devconcept-plan-reviewer`
+- `devconcept-worker`
+- `devconcept-code-reviewer`
+- `devconcept-debugger`
 
-1. **Edit** only inside `~/Desktop/BuiltByHarry/engineering-workflow/`. Do not mirror edits into the parent `~/Desktop/BuiltByHarry/` repo.
+If a Claude runtime cannot see these agents, use the nearest built-in agent or inline the same prompt contract from the agent file.
 
-2. **Bump version** in both manifests (keep them in sync):
-   - `.claude-plugin/plugin.json` → `"version": "0.X.Y"`
-   - `.codex-plugin/plugin.json` → `"version": "0.X.Y"`
-   - Also bump `version` inside `.claude-plugin/marketplace.json`'s plugin entry if it's duplicated there.
+## Codex Agent Templates
 
-3. **Update the README changelog** (optional but recommended).
-
-4. **Commit + push to GitHub** (backup):
-   ```sh
-   cd ~/Desktop/BuiltByHarry/engineering-workflow
-   git checkout -b feat/<short-name>
-   git add .
-   git commit -m "feat: <summary>"
-   git push -u origin feat/<short-name>
-   gh pr create --fill && gh pr merge --rebase --delete-branch
-   git checkout master && git pull --ff-only
-   git tag -a v0.X.Y -m "v0.X.Y: <summary>" && git push origin v0.X.Y
-   ```
-
-5. **Refresh Claude Code cache** — one of:
-   - `/plugin update engineering-workflow@built-by-harry` (preferred if supported for directory sources)
-   - or `/plugin uninstall engineering-workflow@built-by-harry` then `/plugin install engineering-workflow@built-by-harry`
-   - Restart Claude Code after.
-
-6. **Refresh Codex cache:**
-   - As of `codex-cli 0.120.0`, there is no `codex plugin` subcommand — Codex does not automatically populate a new version cache on restart. Seed the versioned cache folder manually:
-     ```sh
-     mkdir -p ~/.codex/plugins/cache/built-by-harry/engineering-workflow/0.X.Y
-     rsync -a --delete --exclude='.git/' --exclude='.gitignore' --exclude='README.md' --exclude='MAINTENANCE.md' \
-       ~/Desktop/BuiltByHarry/engineering-workflow/ \
-       ~/.codex/plugins/cache/built-by-harry/engineering-workflow/0.X.Y/
-     ```
-   - Restart Codex after.
-   - If a future Codex CLI adds `codex plugin install/uninstall`, prefer those over rsync.
-
-7. **Verify:**
-   ```sh
-   cat ~/.claude/plugins/cache/built-by-harry/engineering-workflow/0.X.Y/.claude-plugin/plugin.json
-   cat ~/.codex/plugins/cache/built-by-harry/engineering-workflow/0.X.Y/.codex-plugin/plugin.json
-   ```
-   Both should show the new version. Skill list should include any new skills.
-
-## Quick edit (no version bump)
-
-For tiny fixes (typos, wording tweaks) where you don't want to cut a release:
-
-1. Edit in `~/Desktop/BuiltByHarry/engineering-workflow/skills/...`
-2. Force-refresh the cache manually — delete the versioned cache folder and reinstall, or overwrite in place:
-   ```sh
-   # Claude Code
-   rsync -av --delete --exclude='.git/' --exclude='.gitignore' --exclude='README.md' --exclude='MAINTENANCE.md' \
-     ~/Desktop/BuiltByHarry/engineering-workflow/ \
-     ~/.claude/plugins/cache/built-by-harry/engineering-workflow/0.X.Y/
-
-   # Codex
-   rsync -av --delete --exclude='.git/' --exclude='.gitignore' --exclude='README.md' --exclude='MAINTENANCE.md' \
-     ~/Desktop/BuiltByHarry/engineering-workflow/ \
-     ~/.codex/plugins/cache/built-by-harry/engineering-workflow/0.X.Y/
-   ```
-3. Restart both tools.
-
-This is a last resort — prefer the versioned release flow.
-
-## One-time setup (already done, documented for reproducibility)
-
-If this machine is ever re-set up from scratch:
+Codex templates live in `templates/codex-agents/`. Sync them into a project or user agent directory:
 
 ```sh
-# 1. Clone dev repo
-mkdir -p ~/Desktop/BuiltByHarry
-cd ~/Desktop/BuiltByHarry
-git clone https://github.com/pewepw/engineering-workflow.git
-
-# 2. Claude Code marketplace symlink
-rm -rf ~/.claude/plugins/marketplaces/built-by-harry
-ln -s ~/Desktop/BuiltByHarry/engineering-workflow ~/.claude/plugins/marketplaces/built-by-harry
-
-# 3. Codex plugin symlink
-rm -rf ~/.codex/plugins/engineering-workflow
-ln -s ~/Desktop/BuiltByHarry/engineering-workflow ~/.codex/plugins/engineering-workflow
-
-# 4. Codex marketplace manifest (external to repo — recreate if missing)
-mkdir -p ~/.codex/.agents/plugins
-cat > ~/.codex/.agents/plugins/marketplace.json <<'EOF'
-{
-  "name": "built-by-harry",
-  "interface": {
-    "displayName": "Built by Harry"
-  },
-  "plugins": [
-    {
-      "name": "engineering-workflow",
-      "source": {
-        "source": "local",
-        "path": "./plugins/engineering-workflow"
-      },
-      "policy": {
-        "installation": "AVAILABLE",
-        "authentication": "ON_INSTALL"
-      },
-      "category": "Productivity"
-    }
-  ]
-}
-EOF
-
-# 5. Codex config block (in ~/.codex/config.toml)
-#    Add if not present:
-#    [marketplaces.built-by-harry]
-#    source_type = "local"
-#    source = "/Users/harry/.codex"
-#
-#    [plugins."engineering-workflow@built-by-harry"]
-#    enabled = true
-
-# 6. Install in both tools
-#    Claude Code:
-/plugin install engineering-workflow@built-by-harry
-#    Codex CLI:
-codex plugin install engineering-workflow@built-by-harry
+scripts/sync-codex-agents.sh --project /path/to/repo
+scripts/sync-codex-agents.sh --user
 ```
 
-## Why not github-sourced marketplaces?
+Project sync target: `/path/to/repo/.codex/agents`
+User sync target: `~/.codex/agents`
 
-Claude Code supports `source_type: github` for marketplaces — tempting, because it gives a "push → auto-pull" flow. But **Codex's marketplace system doesn't support github sources** (as of this writing, all `~/.codex/config.toml` marketplaces use `source_type = "local"`). Making Claude github-sourced while Codex stays local creates two different update procedures — you end up remembering "Claude pulls, Codex doesn't" every single time.
+Codex sessions still need explicit subagent phrasing when dispatch is required.
 
-Symmetric local symlinks give one mental model. GitHub is demoted to backup/sharing only. The small cost is one extra `rsync`-to-cache step instead of a `/plugin update` — but you were going to restart the tool anyway, so it's a wash.
+## Version Bump Checklist
 
-## Adding a new skill
+1. Bump `.claude-plugin/plugin.json` to the target version.
+2. Bump `.codex-plugin/plugin.json` to the same version.
+3. Bump `.claude-plugin/marketplace.json` plugin entry if duplicated there.
+4. Update `README.md` changelog.
+5. Update `MAINTENANCE.md` if release steps changed.
+6. Validate JSON, TOML templates, shell syntax, and required file presence.
 
-1. Create `skills/<skill-name>/SKILL.md` with frontmatter:
-   ```
-   ---
-   name: <skill-name>
-   description: Use when ... <trigger conditions>
-   ---
+## Release Checklist
 
-   # <Title>
-   ...
-   ```
-2. Follow the update flow above (bump version, commit, refresh caches).
-3. Update `README.md`'s skill list.
+- [ ] Bump `.claude-plugin/plugin.json` version to `0.6.0`.
+- [ ] Bump `.codex-plugin/plugin.json` version to `0.6.0`.
+- [ ] Bump marketplace metadata version to `0.6.0` if present.
+- [ ] Update product display name to DevConcept.
+- [ ] Update README introduction and changelog.
+- [ ] Add DevConcept agents under `agents/`.
+- [ ] Add Codex agent templates under `templates/codex-agents/`.
+- [ ] Add `scripts/sync-codex-agents.sh`.
+- [ ] Verify Claude Code can see or invoke DevConcept agents.
+- [ ] Verify Codex can use synced DevConcept TOML agents.
+- [ ] Run Lean smoke test in a real repo.
+- [ ] Run Standard smoke test in a real repo.
+- [ ] Run Full smoke test in a real repo.
+- [ ] Run dispatch smoke test in Claude Code.
+- [ ] Run dispatch smoke test in Codex.
+- [ ] Confirm final handoffs include changed, verified, risk, and review-first sections.
+- [ ] Tag release and push.
 
-## Removing a skill
+## Runtime Smoke Tests
 
-1. Delete `skills/<skill-name>/` from the dev clone.
-2. Remove any cross-references in `engineering-defaults/SKILL.md` and `README.md`.
-3. Follow the update flow above.
-4. After refreshing caches, verify the skill is gone from both tools' skill lists.
+Run these in real repositories where the target files and behavior exist. Do not use fake prompts that reference missing files.
+
+- Lean: exact trivial edit. Expect no alignment block, no plan file, no agents, and narrow verification.
+- Standard: small behavior fix or feature. Expect minimal context, alignment before edits, mini-plan, TDD when practical, and verification evidence.
+- Vague feature: underspecified behavior. Expect focused questions and no invented product rules.
+- Full/dispatch: multi-module work. Expect plan review, named Claude agents or explicit Codex spawn phrasing, and worker dispatch only for disjoint slices.
+- Shared-root-cause debugging: several failures likely caused by one change. Expect systematic debugging or `devconcept-debugger` before worker dispatch.
+
+## Release Flow
+
+```sh
+cd /Users/harry/Desktop/BuiltByHarry/devconcept
+git checkout -b feat/<short-name>
+# edit, validate, commit, push, open PR
+```
+
+Refresh Claude Code cache with plugin update or reinstall if supported. Otherwise overwrite the versioned cache from this source tree.
+
+Refresh Codex cache manually when needed:
+
+```sh
+mkdir -p ~/.codex/plugins/cache/built-by-harry/devconcept/0.X.Y
+rsync -a --delete --exclude='.git/' --exclude='.gitignore' \
+  /Users/harry/Desktop/BuiltByHarry/devconcept/ \
+  ~/.codex/plugins/cache/built-by-harry/devconcept/0.X.Y/
+```
+
+Then restart the runtime being validated.
+
+## Rename / Migration Notes
+
+- User-facing name: DevConcept.
+- Plugin install slug: `devconcept`.
+- Default operating skill: `devconcept-core`.
+- First-turn bootstrap skill: `using-devconcept`.
+- Agent prefix: `devconcept-`.
+- New docs, examples, and templates should use DevConcept naming.
