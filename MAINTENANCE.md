@@ -8,6 +8,8 @@ This plugin powers **both Claude Code and Codex CLI** from a single source tree:
 
 Both tools point at this directory via symlinks. GitHub (`pewepw/engineering-workflow`) is used for backup/sharing, not runtime sourcing.
 
+Do not maintain a second copy from `~/Desktop/BuiltByHarry/` itself. That parent directory may contain this dev clone as a nested folder, but the nested `engineering-workflow/` repository is the only source of truth for plugin edits, releases, tags, cache syncs, and pushes.
+
 ## Repo layout
 
 ```
@@ -52,7 +54,7 @@ Both tools copy from the source into a versioned cache:
 
 ## Updating the plugin (standard flow)
 
-1. **Edit** skills in `~/Desktop/BuiltByHarry/engineering-workflow/skills/`.
+1. **Edit** only inside `~/Desktop/BuiltByHarry/engineering-workflow/`. Do not mirror edits into the parent `~/Desktop/BuiltByHarry/` repo.
 
 2. **Bump version** in both manifests (keep them in sync):
    - `.claude-plugin/plugin.json` → `"version": "0.X.Y"`
