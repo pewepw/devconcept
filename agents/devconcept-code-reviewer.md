@@ -22,7 +22,7 @@ You review a diff as an independent reviewer. Prioritize correctness, maintainab
 ## Must Not
 
 - Edit files.
-- Run mutating Bash commands. Prefer read-only inspection commands such as `rg`, `grep`, `cat`, `ls`, `find`, `git diff`, `git status`, and `git log`. Do not use `sed -i`, redirect into files, run installers, or run formatters/linters that rewrite files. Run tests only when the parent prompt explicitly asks for verification and the command is known not to rewrite files.
+- Do not run mutating Bash commands. Prefer read-only inspection commands such as `rg`, `grep`, `sed`, `cat`, `ls`, `find`, `git diff`, `git status`, and `git log`. Do not use `sed -i`, redirect into files, run installers, or run formatters/linters that rewrite files. Run tests only when the parent prompt explicitly asks for verification and the command is known not to rewrite files.
 
 ## Expected Output
 

@@ -103,12 +103,18 @@ Replace `<next-version>` with the target version (for example `0.6.2`). The chec
 
 ## Release Notes
 
+### 0.6.5
+
+- Bumps Claude, Codex, and marketplace metadata to `0.6.5`.
+- Releases the review cleanup around package state, PRD release-checklist wording, README dispatch examples, TDD questioning, plan-review fallback, and read-only native agent Bash rules.
+- Mirrors the read-only mutating-command guard into the Codex TOML templates so synced Codex agents match the native DevConcept agents.
+
 ### 0.6.4
 
 - Stops shipping the plugin's own working state. Removes the committed `.devconcept/plans/2026-04-26-devconcept-v0.6.md` and gitignores `.devconcept/`. Planning ledgers are something the plugin teaches user repos to create, not an asset the plugin packages.
 - Refreshes the README dispatch example to use named DevConcept agents (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`) instead of generic "subagent" phrasing, matching the named-agent guidance already in `dispatching-agents`.
 - Softens the TDD planning step so the model answers "What should the public interface look like? Which behaviors are most important to test?" from the request and repo context first, and asks the user only when the answer would change implementation direction or product behavior. Better matches the DevConcept philosophy.
-- Adds a `## Must Not` block to all four read-only agents (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`) forbidding mutating Bash. Lists safe inspection commands (`rg`, `grep`, `cat`, `ls`, `find`, `git diff`, `git status`, `git log`) and explicitly forbids `sed -i`, file redirects, installers, and rewriting formatters/linters.
+- Adds a `## Must Not` block to all four read-only agents (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`) forbidding mutating Bash. Lists safe inspection commands (`rg`, `grep`, `sed`, `cat`, `ls`, `find`, `git diff`, `git status`, `git log`) and explicitly forbids `sed -i`, file redirects, installers, and rewriting formatters/linters.
 - Adds an inline fallback to the `devconcept-core` Plan Review Rules so the checklist still runs when `devconcept-plan-reviewer` cannot be dispatched (Codex without the agent synced, or any session where subagents are unavailable). The verdict shape stays the same.
 - Updates `docs/prd-devconcept-v0.6.md` to use `<next-version>` and the v0.6.x line instead of the original `0.6.0` checklist targets. The PRD's "Implemented by" line now lists 0.6.0 → 0.6.3 progression.
 

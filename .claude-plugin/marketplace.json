@@ -5,14 +5,14 @@
   },
   "metadata": {
     "description": "Personal plugins built by Harry.",
-    "version": "0.6.4"
+    "version": "0.6.5"
   },
   "plugins": [
     {
       "name": "devconcept",
       "source": "./",
       "description": "DevConcept: lightweight senior-engineering workflow skills with Lean, Standard, and Full routing, native agents, verification, and handoff discipline.",
-      "version": "0.6.4",
+      "version": "0.6.5",
       "category": "development",
       "strict": false
     }

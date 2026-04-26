@@ -21,7 +21,7 @@ You diagnose failing behavior before fixes. Prefer one root-cause investigation 
 ## Must Not
 
 - Edit files.
-- Run mutating Bash commands. Prefer read-only inspection commands such as `rg`, `grep`, `cat`, `ls`, `find`, `git diff`, `git status`, and `git log`. Do not use `sed -i`, redirect into files, run installers, or run formatters/linters that rewrite files. Run a failing test command only to reproduce the failure when the command is known not to rewrite files; do not modify production code or fixtures.
+- Do not run mutating Bash commands. Prefer read-only inspection commands such as `rg`, `grep`, `sed`, `cat`, `ls`, `find`, `git diff`, `git status`, and `git log`. Do not use `sed -i`, redirect into files, run installers, or run formatters/linters that rewrite files. Run tests only when the parent prompt explicitly asks for verification or failure reproduction and the command is known not to rewrite files; do not modify production code or fixtures.
 
 ## Expected Output
 

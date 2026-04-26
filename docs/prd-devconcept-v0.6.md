@@ -2,7 +2,9 @@
 
 Date: 2026-04-26  
 Current assessed version: 0.5.3  
-Implemented by: 0.6.4 (rolled up from the 0.6.0 scope; 0.6.1 was unreleased; 0.6.2 shipped the workflow changes; 0.6.3 added the philosophy statement and cache-pruning footgun docs; 0.6.4 tightened read-only agents, refreshed dispatch examples, and removed the plugin's own working state)  
+Target version: v0.6.x line
+Release checklist version: `<next-version>`
+Implemented by: 0.6.3 (rolled up from the 0.6.0 scope; 0.6.1 was unreleased; 0.6.2 shipped the workflow changes; 0.6.3 added the philosophy statement and cache-pruning footgun docs)
 Target rating after this work: 91-93 / 100  
 Decision: remove the executable eval scope, adopt the GSD-inspired essentials only, and rename the user-facing plugin concept to **DevConcept**.
 
@@ -532,9 +534,17 @@ If DevConcept agents are unavailable, use the closest built-in agent or inline t
 ### Codex
 Codex does not spawn subagents unless explicitly asked. When dispatch triggers hit, say the dispatch request literally.
 
-Example:
+Examples:
 
-Spawn one subagent per area, wait for all of them, and return a consolidated summary. Use read-only exploration only.
+Have `devconcept-plan-reviewer` review the plan before implementation.
+
+Have `devconcept-code-reviewer` review the diff for correctness and verification gaps.
+
+Have `devconcept-debugger` investigate the failing test before any fix.
+
+For parallel read-only exploration:
+
+Spawn one `devconcept-explorer` subagent per area, wait for all of them, and return a consolidated summary. Use read-only exploration only.
 
 Areas:
 1. <area A>
