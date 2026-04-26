@@ -1,7 +1,8 @@
-# DevConcept v0.6.0 PRD and Implementation Plan
+# DevConcept v0.6.x PRD and Implementation Plan
 
 Date: 2026-04-26  
 Current assessed version: 0.5.3  
+Implemented by: 0.6.2 (rolled up from the 0.6.0 scope; 0.6.1 was unreleased)  
 Target rating after this work: 91-93 / 100  
 Decision: remove the executable eval scope, adopt the GSD-inspired essentials only, and rename the user-facing plugin concept to **DevConcept**.
 
@@ -133,7 +134,7 @@ The router should classify internally. It should not print a mode banner for eve
 
 ## 4.1 Product Name
 
-**DevConcept v0.6.0**
+**DevConcept v0.6.x** (shipping as 0.6.2)
 
 Working description:
 

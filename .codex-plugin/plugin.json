@@ -1,6 +1,6 @@
 {
   "name": "devconcept",
-  "version": "0.6.1",
+  "version": "0.6.2",
   "description": "DevConcept: Lean, Standard, and Full workflow routing; requirements alignment; planning; agent templates; observable TDD; debugging; review; finishing; and compounded learnings.",
   "author": {
     "name": "Harry"
@@ -32,13 +32,8 @@
       "Code"
     ],
     "defaultPrompt": [
-      "Use DevConcept for this task.",
-      "Route the task through Lean, Standard, or Full mode.",
-      "Align requirements before non-trivial edits.",
-      "Use subagents when dispatch triggers hit and the runtime/user instructions allow them.",
-      "Use a planning ledger for long-running work.",
-      "Explore design alternatives for this interface.",
-      "Compound durable learnings from this session."
+      "Use DevConcept's Lean / Standard / Full router and invoke only the skills needed for the task.",
+      "Then, only when the task warrants it: align requirements before non-trivial edits; use a planning ledger for long-running, multi-phase work; dispatch named DevConcept subagents when context-budget rules justify it and the runtime allows them; explore design alternatives when an interface or refactor has real tradeoffs; use TDD for behavior-heavy changes when a practical test surface exists; debug systematically when failures may share one cause; and compound durable learnings into the project's instruction file when a repo-wide rule emerges."
     ],
     "brandColor": "#2563EB",
     "composerIcon": "./assets/icon.png",

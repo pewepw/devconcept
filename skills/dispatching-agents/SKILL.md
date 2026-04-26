@@ -47,12 +47,20 @@ If DevConcept agents are unavailable, use the closest built-in agent or inline t
 
 ### Codex
 
-Codex does not spawn subagents unless explicitly asked in the conversation. When dispatch triggers hit and subagents are allowed, say the dispatch request literally.
+Codex does not spawn subagents unless explicitly asked in the conversation. Codex custom agents live in `~/.codex/agents/` as TOML files. When dispatch triggers hit and subagents are allowed, ask for them by name in plain English so Codex routes to the matching DevConcept TOML.
 
-Example:
+Prefer named-agent phrasing first:
+
+- "Have `devconcept-explorer` map <area> read-only and return Findings, Relevant files, Risks / unknowns, Recommended next step."
+- "Have `devconcept-plan-reviewer` review the plan above against the Plan Review Checklist."
+- "Have `devconcept-code-reviewer` review the diff for correctness, scope drift, and verification gaps."
+- "Have `devconcept-debugger` investigate <symptom> before any fix; reproduce first, then identify root cause."
+- "Have `devconcept-worker` implement <bounded slice>; follow the approved plan and the deviation protocol."
+
+When several read-only areas need to run in parallel, use the literal spawn phrasing so Codex starts a batch:
 
 ```md
-Spawn one subagent per area, wait for all of them, and return a consolidated summary. Use read-only exploration only.
+Spawn one `devconcept-explorer` subagent per area, wait for all of them, and return a consolidated summary. Use read-only exploration only.
 
 Areas:
 1. <area A>
@@ -62,7 +70,9 @@ Areas:
 Each subagent must return: Findings, Relevant files, Risks / unknowns, Recommended next step.
 ```
 
-If the current Codex session does not allow subagents, continue inline using the same contracts and report that dispatch was skipped because subagents were unavailable.
+If the named DevConcept agents are not synced into Codex, ask the user to run `scripts/sync-codex-agents.sh --user`, or fall back to the closest built-in agent and inline the same contract.
+
+If the current Codex session does not allow subagents at all, continue inline using the same contracts and report that dispatch was skipped because subagents were unavailable.
 
 ## Context-Budget Dispatch Rules
 
