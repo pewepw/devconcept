@@ -103,6 +103,11 @@ Replace `<next-version>` with the target version (for example `0.6.2`). The chec
 
 ## Release Notes
 
+### 0.6.6
+
+- Quotes the `dispatching-agents` skill description frontmatter so strict YAML parsers accept the colon in "dispatch triggers hit: ...".
+- Bumps Claude, Codex, and marketplace metadata to `0.6.6`.
+
 ### 0.6.5
 
 - Bumps Claude, Codex, and marketplace metadata to `0.6.5`.

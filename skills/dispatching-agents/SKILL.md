@@ -1,6 +1,6 @@
 ---
 name: dispatching-agents
-description: Use when DevConcept is active and dispatch triggers hit: multiple unfamiliar files, independent failures, long research, heavy tool output, or parallelizable implementation slices. Defines standing permission, runtime recipes, context-budget rules, and mandatory review.
+description: "Use when DevConcept is active and dispatch triggers hit: multiple unfamiliar files, independent failures, long research, heavy tool output, or parallelizable implementation slices. Defines standing permission, runtime recipes, context-budget rules, and mandatory review."
 ---
 
 # Dispatching Agents

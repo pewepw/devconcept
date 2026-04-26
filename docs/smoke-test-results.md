@@ -25,6 +25,19 @@ Copy this block when adding a new entry.
 
 <!-- Append new entries below, newest first. -->
 
+### 2026-04-27 — Codex — 0.6.6 frontmatter release
+
+- Date: 2026-04-27
+- Runtime: Codex
+- Repo: `/Users/harry/Desktop/BuiltByHarry/devconcept`
+- Task: Fix invalid `dispatching-agents` frontmatter and deploy as `0.6.6`.
+- Expected mode: Standard
+- Observed mode: Standard
+- Agents used: None
+- Verification: Strict YAML frontmatter parsing for every `skills/*/SKILL.md`; JSON manifest parsing; shell syntax check for `scripts/sync-codex-agents.sh`; `0.6.6` Claude and Codex runtime caches built; Codex agent templates synced to `~/.codex/agents`.
+- Issues found: Runtime-only Claude/Codex host smoke tests were not executed inside this release shell.
+- Follow-ups: Run manual host smoke tests after installing `0.6.6`.
+
 ### 2026-04-27 — Codex — 0.6.5 release checklist
 
 - Date: 2026-04-27
