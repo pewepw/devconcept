@@ -1,7 +1,7 @@
 {
   "name": "devconcept",
-  "version": "0.6.0",
-  "description": "DevConcept for Codex: Lean, Standard, and Full workflow routing; requirements alignment; planning; Codex agent templates; observable TDD; debugging; review; finishing; and compounded learnings.",
+  "version": "0.6.1",
+  "description": "DevConcept: Lean, Standard, and Full workflow routing; requirements alignment; planning; agent templates; observable TDD; debugging; review; finishing; and compounded learnings.",
   "author": {
     "name": "Harry"
   },
@@ -22,8 +22,8 @@
   "skills": "./skills/",
   "interface": {
     "displayName": "DevConcept",
-    "shortDescription": "Lean, Standard, and Full senior-engineering workflow routing for Codex.",
-    "longDescription": "DevConcept packages reusable Codex skills for correctness-first development: Lean / Standard / Full mode routing, first-action core bootstrap, requirements alignment before non-trivial edits, lightweight durable planning for long tasks, runtime-aware subagent dispatch, Codex agent templates, observable red-green test-driven behavior changes, systematic debugging, parallel design-space exploration, plan review, subagent review, honest finishing, and durable session learning capture.",
+    "shortDescription": "Lean, Standard, and Full senior-engineering workflow routing.",
+    "longDescription": "DevConcept packages reusable skills for correctness-first development: Lean / Standard / Full mode routing, first-action core bootstrap, requirements alignment before non-trivial edits, lightweight durable planning for long tasks, runtime-aware subagent dispatch, agent templates, observable red-green test-driven behavior changes, systematic debugging, parallel design-space exploration, plan review, subagent review, honest finishing, and durable session learning capture.",
     "developerName": "Harry",
     "category": "Productivity",
     "capabilities": [

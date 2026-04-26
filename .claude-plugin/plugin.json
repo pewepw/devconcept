@@ -1,7 +1,7 @@
 {
   "name": "devconcept",
-  "version": "0.6.0",
-  "description": "DevConcept for Claude Code: Lean, Standard, and Full workflow routing; requirements alignment; planning; native agents; observable TDD; debugging; review; finishing; and compounded learnings.",
+  "version": "0.6.1",
+  "description": "DevConcept: Lean, Standard, and Full workflow routing; requirements alignment; planning; native agents; observable TDD; debugging; review; finishing; and compounded learnings.",
   "author": {
     "name": "Harry"
   }

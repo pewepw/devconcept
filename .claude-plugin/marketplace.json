@@ -4,15 +4,15 @@
     "name": "Harry"
   },
   "metadata": {
-    "description": "Personal Claude Code plugins built by Harry.",
-    "version": "0.6.0"
+    "description": "Personal plugins built by Harry.",
+    "version": "0.6.1"
   },
   "plugins": [
     {
       "name": "devconcept",
       "source": "./",
       "description": "DevConcept: lightweight senior-engineering workflow skills with Lean, Standard, and Full routing, native agents, verification, and handoff discipline.",
-      "version": "0.6.0",
+      "version": "0.6.1",
       "category": "development",
       "strict": false
     }
