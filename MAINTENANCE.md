@@ -148,6 +148,19 @@ rsync -a --delete --exclude='.git/' --exclude='.gitignore' \
 
 Then restart the runtime being validated.
 
+## Cache Pruning Footgun
+
+Claude Code tracks the active install version in `~/.claude/plugins/installed_plugins.json` under the `devconcept@built-by-harry` entry. The `installPath` field points at one specific versioned cache directory (for example `.../devconcept/0.6.1`). If that directory is deleted while the registry still points to it, the plugin disappears from Claude Code on the next launch.
+
+Safe order when bumping the version:
+
+1. Build the new versioned cache (`mkdir -p .../devconcept/<new-version>` + rsync).
+2. Update the active install to the new version. Preferred: run `/plugin update devconcept@built-by-harry` (or uninstall + reinstall) inside Claude Code, which rewrites `installed_plugins.json` for you. Fallback: edit `installed_plugins.json` and set the entry's `installPath` to `.../devconcept/<new-version>`, `version` to `<new-version>`, and refresh `lastUpdated` and `gitCommitSha`.
+3. Restart Claude Code.
+4. Only then prune older versioned cache directories under `~/.claude/plugins/cache/built-by-harry/devconcept/`.
+
+The same shape applies to Codex: `~/.codex/plugins/cache/built-by-harry/devconcept/<version>/` should not be deleted while a Codex session may still resolve to it. Build the new version first, restart, then prune.
+
 ## Rename / Migration Notes
 
 - User-facing name: DevConcept.
