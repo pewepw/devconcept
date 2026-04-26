@@ -114,6 +114,8 @@ Use `devconcept-plan-reviewer`:
 - in Standard Mode when the change affects architecture, security, billing, auth, permissions, data integrity, or public API contracts
 - never in Lean Mode
 
+If the runtime cannot dispatch `devconcept-plan-reviewer` (Codex without the agent synced, or any session where subagents are unavailable or refused), run the same Plan Review Checklist inline before implementation and post the verdict in the same shape (`pass | needs revision`, blockers, warnings, requirement coverage, verification gaps, recommended revision). Do not skip plan review just because dispatch is not available.
+
 ### Plan Review Checklist
 
 Check:

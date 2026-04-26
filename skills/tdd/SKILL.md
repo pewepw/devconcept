@@ -53,9 +53,14 @@ Before writing any code:
 - [ ] List the behaviors to test (not implementation steps)
 - [ ] Get user approval only when the test plan changes scope or exposes a meaningful product decision
 
-Ask: "What should the public interface look like? Which behaviors are most important to test?"
+Answer from the request and repo context first:
 
-**You can't test everything.** Confirm with the user exactly which behaviors matter most. Focus testing effort on critical paths and complex logic, not every possible edge case.
+- What should the public interface look like?
+- Which behaviors are most important to test?
+
+Ask the user only when the answer would change implementation direction or product behavior. If the request and surrounding code already pin both down, do not stop to ask — that is the DevConcept philosophy applied to TDD: not ceremonial by default, but rigorous when the risk justifies it.
+
+**You can't test everything.** Focus testing effort on critical paths and complex logic, not every possible edge case. Confirm priorities with the user only when the trade-off changes scope or product behavior.
 
 Before editing production code, state the first behavior test you will make fail and the command you expect to run. If no practical behavior test exists, state that before coding and treat later checks as verification rather than TDD.
 

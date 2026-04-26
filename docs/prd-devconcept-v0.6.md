@@ -2,7 +2,7 @@
 
 Date: 2026-04-26  
 Current assessed version: 0.5.3  
-Implemented by: 0.6.2 (rolled up from the 0.6.0 scope; 0.6.1 was unreleased)  
+Implemented by: 0.6.4 (rolled up from the 0.6.0 scope; 0.6.1 was unreleased; 0.6.2 shipped the workflow changes; 0.6.3 added the philosophy statement and cache-pruning footgun docs; 0.6.4 tightened read-only agents, refreshed dispatch examples, and removed the plugin's own working state)  
 Target rating after this work: 91-93 / 100  
 Decision: remove the executable eval scope, adopt the GSD-inspired essentials only, and rename the user-facing plugin concept to **DevConcept**.
 
@@ -218,7 +218,7 @@ Agent prefix: devconcept-
 Required documentation changes:
 
 - README title and introduction use DevConcept.
-- Changelog describes the release as DevConcept v0.6.0.
+- Changelog describes the release as DevConcept v0.6.x.
 - New agents and templates use `devconcept-*` names.
 - Default workflow docs refer to `devconcept-core` and first-turn bootstrap docs refer to `using-devconcept`.
 - Generic skill paths are removed.
@@ -835,9 +835,9 @@ Update plugin manifests:
 ```md
 ## Release Checklist
 
-- [ ] Bump `.claude-plugin/plugin.json` version to `0.6.0`.
-- [ ] Bump `.codex-plugin/plugin.json` version to `0.6.0`.
-- [ ] Bump marketplace metadata version to `0.6.0` if present.
+- [ ] Bump `.claude-plugin/plugin.json` version to `<next-version>`.
+- [ ] Bump `.codex-plugin/plugin.json` version to `<next-version>`.
+- [ ] Bump marketplace metadata version to `<next-version>` if present.
 - [ ] Update product display name to DevConcept.
 - [ ] Update README introduction and changelog.
 - [ ] Add DevConcept agents under `agents/`.
@@ -876,7 +876,7 @@ git checkout -b feat/devconcept-v0.6-workflow-agents
 Tasks:
 
 1. Add this PRD as `docs/prd-devconcept-v0.6.md`.
-2. Confirm target version is `0.6.0`.
+2. Confirm target version is the v0.6.x line (this PRD shipped through 0.6.2 / 0.6.3).
 3. Confirm current assessed version is `0.5.3`.
 4. Confirm no executable eval harness is part of this release.
 5. Keep `devconcept-core` as the default operating skill and `using-devconcept` as the first-turn bootstrap.
@@ -1044,7 +1044,7 @@ Tasks:
 2. Update README with the mode model.
 3. Update README with agent list and dispatch explanation.
 4. Update `MAINTENANCE.md` with agent sync and smoke tests.
-5. Update plugin manifests to `0.6.0`.
+5. Update plugin manifests to `<next-version>` on the v0.6.x line.
 6. Update changelog.
 7. Remove references to executable eval work from the release scope.
 
@@ -1055,7 +1055,7 @@ Deliverable:
 Acceptance:
 
 - A new user understands DevConcept in under two minutes.
-- A maintainer can release v0.6.0 using the checklist.
+- A maintainer can release any v0.6.x version using the checklist.
 - There is no `run-workflow-evals.py` requirement in the docs.
 
 ---
@@ -1128,7 +1128,7 @@ Acceptance:
 
 ---
 
-## 7. Proposed v0.6.0 File Tree
+## 7. Proposed v0.6.x File Tree
 
 ```text
 devconcept/
@@ -1180,8 +1180,8 @@ devconcept/
 ### Naming and packaging
 
 - [ ] Product display name is DevConcept.
-- [ ] Target version is `0.6.0`.
-- [ ] Current assessed version references are `0.5.3`.
+- [ ] Target version is on the v0.6.x line (use `<next-version>` when bumping).
+- [ ] Current assessed version references are `0.5.3` (the baseline this PRD started from).
 - [ ] README and changelog use DevConcept naming.
 - [ ] Plugin slug, display name, and docs use DevConcept naming.
 

@@ -58,10 +58,17 @@ scripts/sync-codex-agents.sh
 
 Claude Code should prefer named DevConcept agents when dispatch triggers hit. If the agents are unavailable, use the closest built-in agent or inline the same contract.
 
-Codex requires explicit subagent phrasing. When dispatch is appropriate and allowed, ask literally for the subagents needed:
+Codex requires explicit subagent phrasing. When dispatch is appropriate and allowed, name the DevConcept agent rather than the generic word "subagent":
+
+- `Have devconcept-explorer map <area> read-only and return Findings, Relevant files, Risks / unknowns, Recommended next step.`
+- `Have devconcept-plan-reviewer review the plan above against the Plan Review Checklist before implementation.`
+- `Have devconcept-code-reviewer review the diff for correctness, scope drift, and verification gaps.`
+- `Have devconcept-debugger investigate the failing test before any fix; reproduce first, then identify root cause.`
+
+For parallel read-only exploration, spawn a batch by name:
 
 ```md
-Spawn one subagent per area, wait for all of them, and return a consolidated summary. Use read-only exploration only.
+Spawn one `devconcept-explorer` subagent per area, wait for all of them, and return a consolidated summary. Use read-only exploration only.
 
 Areas:
 1. <area A>
@@ -69,6 +76,8 @@ Areas:
 
 Each subagent must return: Findings, Relevant files, Risks / unknowns, Recommended next step.
 ```
+
+If the named DevConcept agents are not synced into Codex, run `scripts/sync-codex-agents.sh` (writes to `~/.codex/agents`) and try again, or fall back to inline read-only exploration with the same return contract.
 
 Do not dispatch workers when failures likely share one root cause, architecture is unresolved, write ownership overlaps, or the main agent can do the work safely.
 
@@ -86,6 +95,7 @@ Manual workflow checks live in [`docs/manual-smoke-tests.md`](docs/manual-smoke-
 
 ## Versioning
 
+- `0.6.4` - Removes the committed `.devconcept/` working state from the plugin package and gitignores it (planning ledgers belong in user repos, not the plugin); refreshes the README dispatch example to use named DevConcept agents (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`); softens the TDD planning step so the model answers from request and repo context first and only asks the user when the answer would change implementation direction or product behavior; adds a `## Must Not` block to all four read-only agents (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`) forbidding mutating Bash and listing safe inspection commands; adds an inline fallback to the `devconcept-core` Plan Review Rules so the checklist still runs when `devconcept-plan-reviewer` cannot be dispatched; updates `docs/prd-devconcept-v0.6.md` to use `<next-version>` and the v0.6.x line instead of the original `0.6.0` checklist targets.
 - `0.6.3` - States the DevConcept philosophy ("not ceremonial by default, but rigorous when the risk justifies it") in the README intro and as a `## Philosophy` section in [`skills/devconcept-core/SKILL.md`](skills/devconcept-core/SKILL.md) above the Mode Router so the model anchors on it before classifying. Adds a Cache Pruning Footgun section to [`MAINTENANCE.md`](MAINTENANCE.md) explaining the safe order for refreshing versioned caches without losing visibility in Claude Code or Codex.
 - `0.6.2` - Tightens Codex dispatch with explicit named-agent invocation examples (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`, `devconcept-worker`); simplifies the `.codex-plugin` `defaultPrompt` so Lean / Standard / Full routing dominates and other behaviors are conditional; drops the project-level Codex sync target so `scripts/sync-codex-agents.sh` only writes to `~/.codex/agents`; reframes manual workflow scenarios as [`docs/manual-smoke-tests.md`](docs/manual-smoke-tests.md) (checkbox checklist, no scoring or invented prompts) and removes the old `evals/` folder; adds [`docs/smoke-test-results.md`](docs/smoke-test-results.md) for per-run notes; reframes the version-bump checklist around `<next-version>`; aligns PRD title and release notes on the v0.6.x line.
 - `0.6.0` - Renames the plugin and user-facing workflow to DevConcept; adds `devconcept-core` and `using-devconcept`; adds Lean / Standard / Full routing; adds native DevConcept agents and Codex templates; adds runtime dispatch recipes, plan review, worker deviation protocol, output contracts, maintenance docs, and manual smoke-test guidance.
