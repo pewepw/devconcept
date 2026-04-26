@@ -7,6 +7,10 @@ description: Core DevConcept operating skill for Claude Code and Codex. Routes w
 
 DevConcept is a lightweight senior-engineering workflow for Claude Code and Codex. It routes each task through the minimum process needed to understand, implement, verify, and hand off the work correctly.
 
+## Philosophy
+
+Not ceremonial by default, but rigorous when the risk justifies it. The minimum mode that keeps the work correct is the right mode. Add alignment, planning, dispatch, plan review, or TDD only when the task earns them; do not retain that ceremony once the risk has been reduced.
+
 ## DevConcept Mode Router
 
 Before acting, classify the task internally as Lean, Standard, or Full. Use the minimum mode that can complete the work correctly.

@@ -2,6 +2,8 @@
 
 DevConcept is a lightweight senior-engineering workflow for Claude Code and Codex. It helps an agent choose the minimum process needed to understand, implement, verify, and hand off code changes correctly.
 
+**Philosophy: not ceremonial by default, but rigorous when the risk justifies it.** Lean Mode stays out of the way; Standard adds alignment and verification; Full adds plan review and dispatch — and only when the work warrants it.
+
 The plugin install slug is `devconcept`. The user-facing workflow name is **DevConcept**, and the default operating skill is **devconcept-core**.
 
 ## Install
