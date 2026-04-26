@@ -103,6 +103,12 @@ Replace `<next-version>` with the target version (for example `0.6.2`). The chec
 
 ## Release Notes
 
+### 0.6.3
+
+- Adds an explicit philosophy statement: "not ceremonial by default, but rigorous when the risk justifies it." Lives in the README intro and as a `## Philosophy` section in `skills/devconcept-core/SKILL.md` above the Mode Router so the runtime anchors on it before classifying a task.
+- Adds a Cache Pruning Footgun section to this file explaining the safe order for refreshing the versioned `~/.claude/plugins/cache/built-by-harry/devconcept/<version>/` and Codex equivalent — build new cache, update the registry pointer (preferably via `/plugin update devconcept@built-by-harry`), restart, then prune older versions. Avoids the trap where deleting a cache the registry still references makes the plugin disappear from Claude Code.
+- No skill router behavior, agent contracts, or output contracts changed; this is a copy + maintenance release on top of 0.6.2.
+
 ### 0.6.2
 
 - Tightens Codex dispatch guidance with explicit named-agent invocation examples (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`, `devconcept-worker`).
