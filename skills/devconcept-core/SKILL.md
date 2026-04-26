@@ -99,7 +99,7 @@ Do not keep Full Mode ceremony after the risk has been reduced.
 - TDD: use for bug fixes and behavior-heavy changes when a practical behavior test surface exists.
 - Systematic debugging: use before fixes when symptoms are intermittent, cross-module, unclear, or likely share one root cause.
 - Design alternatives: use when a new interface, module, or refactor has real tradeoffs not settled by repo convention.
-- Dispatching agents: use when context-budget rules justify read-only exploration, plan review, review, debugging, or bounded worker slices.
+- Dispatching agents: use when context-budget rules justify read-only exploration, plan review, review, debugging, or bounded worker slices. In Claude Code prefer the named DevConcept agents directly; in Codex invoke them by name in plain English (for example, "Have `devconcept-explorer` map <area> read-only").
 - Subagent review: use before accepting code written by an implementer subagent.
 - Finishing work: use before final handoff after code changes, generated artifacts, subagent work, or completion claims.
 

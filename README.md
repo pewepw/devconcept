@@ -46,11 +46,10 @@ Claude Code can use the native agents in `agents/`:
 - `devconcept-code-reviewer` - independent diff review
 - `devconcept-debugger` - failure diagnosis before fixes
 
-Codex users can sync matching templates from `templates/codex-agents/`:
+Codex users can sync matching templates from `templates/codex-agents/` into `~/.codex/agents`:
 
 ```sh
-scripts/sync-codex-agents.sh --project /path/to/repo
-scripts/sync-codex-agents.sh --user
+scripts/sync-codex-agents.sh
 ```
 
 ## Dispatch Differences
@@ -79,13 +78,14 @@ Do not dispatch workers when failures likely share one root cause, architecture 
 - Cross-module billing/auth/data change: Full Mode, plan review before implementation and dispatch only for separable exploration or disjoint worker slices.
 - Multiple auth failures after one refactor: systematic debugging or `devconcept-debugger` first, no premature parallel workers.
 
-## Manual Evals
+## Manual Smoke Tests
 
-Manual workflow evals live in [`evals/devconcept-evals.md`](evals/devconcept-evals.md). They are repo-backed smoke scenarios, not an executable eval harness.
+Manual workflow checks live in [`docs/manual-smoke-tests.md`](docs/manual-smoke-tests.md) as a checkbox dogfood checklist. Per-run notes go in [`docs/smoke-test-results.md`](docs/smoke-test-results.md). There is no executable eval harness or fixture repo.
 
 ## Versioning
 
-- `0.6.0` - Renames the plugin and user-facing workflow to DevConcept; adds `devconcept-core` and `using-devconcept`; adds Lean / Standard / Full routing; adds native DevConcept agents and Codex templates; adds runtime dispatch recipes, plan review, worker deviation protocol, output contracts, v0.6.0 maintenance docs, and manual smoke-test guidance.
+- `0.6.2` - Tightens Codex dispatch with explicit named-agent invocation examples (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`, `devconcept-worker`); simplifies the `.codex-plugin` `defaultPrompt` so Lean / Standard / Full routing dominates and other behaviors are conditional; drops the project-level Codex sync target so `scripts/sync-codex-agents.sh` only writes to `~/.codex/agents`; reframes manual workflow scenarios as [`docs/manual-smoke-tests.md`](docs/manual-smoke-tests.md) (checkbox checklist, no scoring or invented prompts) and removes the old `evals/` folder; adds [`docs/smoke-test-results.md`](docs/smoke-test-results.md) for per-run notes; reframes the version-bump checklist around `<next-version>`; aligns PRD title and release notes on the v0.6.x line.
+- `0.6.0` - Renames the plugin and user-facing workflow to DevConcept; adds `devconcept-core` and `using-devconcept`; adds Lean / Standard / Full routing; adds native DevConcept agents and Codex templates; adds runtime dispatch recipes, plan review, worker deviation protocol, output contracts, maintenance docs, and manual smoke-test guidance.
 - `0.5.3` - Tightens eval and skill rules for first-action defaults bootstrap, observable RED evidence before behavior-heavy implementation, and pre-coding skipped-skill reporting.
 - `0.5.2` - Adds a lightweight eval harness for trigger accuracy, ceremony control, dispatch behavior, and completion quality.
 - `0.5.1` - Fixes workflow review issues: platform-neutral defaults bootstrap, inline fallback for design alternatives, direct design trigger routing, clearer pre-alignment Bash rules, and practical local repair allowance during subagent review.

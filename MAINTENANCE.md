@@ -62,15 +62,13 @@ If a Claude runtime cannot see these agents, use the nearest built-in agent or i
 
 ## Codex Agent Templates
 
-Codex templates live in `templates/codex-agents/`. Sync them into a project or user agent directory:
+Codex templates live in `templates/codex-agents/`. Sync them into the user-level Codex agents directory:
 
 ```sh
-scripts/sync-codex-agents.sh --project /path/to/repo
-scripts/sync-codex-agents.sh --user
+scripts/sync-codex-agents.sh
 ```
 
-Project sync target: `/path/to/repo/.codex/agents`
-User sync target: `~/.codex/agents`
+Sync target: `~/.codex/agents`
 
 Codex sessions still need explicit subagent phrasing when dispatch is required.
 
@@ -85,14 +83,13 @@ Codex sessions still need explicit subagent phrasing when dispatch is required.
 
 ## Release Checklist
 
-- [ ] Bump `.claude-plugin/plugin.json` version to `0.6.0`.
-- [ ] Bump `.codex-plugin/plugin.json` version to `0.6.0`.
-- [ ] Bump marketplace metadata version to `0.6.0` if present.
-- [ ] Update product display name to DevConcept.
-- [ ] Update README introduction and changelog.
-- [ ] Add DevConcept agents under `agents/`.
-- [ ] Add Codex agent templates under `templates/codex-agents/`.
-- [ ] Add `scripts/sync-codex-agents.sh`.
+Replace `<next-version>` with the target version (for example `0.6.2`). The checklist is the same for patch and minor bumps.
+
+- [ ] Bump `.claude-plugin/plugin.json` version to `<next-version>`.
+- [ ] Bump `.codex-plugin/plugin.json` version to `<next-version>`.
+- [ ] Bump marketplace metadata version to `<next-version>` if present.
+- [ ] Update README changelog with `<next-version>` notes.
+- [ ] If the product name, agent set, or sync scripts changed, refresh the affected docs.
 - [ ] Verify Claude Code can see or invoke DevConcept agents.
 - [ ] Verify Codex can use synced DevConcept TOML agents.
 - [ ] Run Lean smoke test in a real repo.
@@ -101,7 +98,24 @@ Codex sessions still need explicit subagent phrasing when dispatch is required.
 - [ ] Run dispatch smoke test in Claude Code.
 - [ ] Run dispatch smoke test in Codex.
 - [ ] Confirm final handoffs include changed, verified, risk, and review-first sections.
+- [ ] Append a row to `docs/smoke-test-results.md`.
 - [ ] Tag release and push.
+
+## Release Notes
+
+### 0.6.2
+
+- Tightens Codex dispatch guidance with explicit named-agent invocation examples (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`, `devconcept-worker`).
+- Simplifies the `.codex-plugin` `defaultPrompt` so the Lean / Standard / Full router is the dominant rule and the other behaviors (alignment, planning ledger, dispatch, design alternatives, TDD, systematic debugging, compounded learning) are conditional examples.
+- Drops the project-level Codex sync target. `scripts/sync-codex-agents.sh` now writes only to `~/.codex/agents`; the `--project` flag is removed and running with no arguments is equivalent to `--user`.
+- Moves manual workflow scenarios from `evals/devconcept-evals.md` to `docs/manual-smoke-tests.md` as a checkbox dogfood checklist (no scoring, no fixtures, no invented "settings screen / checkout cancellation" prompts). The old `evals/` directory is removed.
+- Adds `docs/smoke-test-results.md` for lightweight per-run notes (date, runtime, repo, expected vs observed mode, agents used, verification, issues, follow-ups).
+- Reframes the version-bump checklist around `<next-version>` instead of a fixed 0.6.0 target, and aligns the PRD title on the v0.6.x line.
+
+### 0.6.0
+
+- Renames the plugin and user-facing workflow to DevConcept.
+- Adds `devconcept-core` and `using-devconcept`, the Lean / Standard / Full router, native DevConcept agents, Codex templates, runtime dispatch recipes, plan review, worker deviation protocol, and output contracts.
 
 ## Runtime Smoke Tests
 
