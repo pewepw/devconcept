@@ -103,14 +103,14 @@ Replace `<next-version>` with the target version (for example `0.6.2`). The chec
 
 ## Release Notes
 
-### 6.9.0
+### 0.6.9
 
 - Aligns Codex dispatch rules with Codex subagent behavior: Codex must be explicitly asked before spawning agents unless the user already requested subagents or parallel agent work.
 - Adds a Full Mode dispatch decision gate so broad work records `dispatch` versus `inline` with a reason.
 - Requires a review pass for broad or high-risk Full Mode work, using `devconcept-code-reviewer` when allowed or an inline review checklist when agent review is unavailable or declined.
 - Updates manual smoke tests and final handoff expectations to report Dispatch / review.
 - Removes mandatory review-start pointers from final handoffs.
-- Bumps Claude, Codex, and marketplace metadata to `6.9.0`.
+- Bumps Claude, Codex, and marketplace metadata to `0.6.9`.
 
 ### 0.6.8
 

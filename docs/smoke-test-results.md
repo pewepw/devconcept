@@ -25,7 +25,7 @@ Copy this block when adding a new entry.
 
 <!-- Append new entries below, newest first. -->
 
-### 2026-04-27 — Codex — 6.9.0 Codex dispatch choice rules
+### 2026-04-27 — Codex — 0.6.9 Codex dispatch choice rules
 
 - Date: 2026-04-27
 - Runtime: Codex
