@@ -103,6 +103,15 @@ Replace `<next-version>` with the target version (for example `0.6.2`). The chec
 
 ## Release Notes
 
+### 0.6.8
+
+- Adds a first-tool-batch rule so `using-devconcept` / `devconcept-core` cannot be batched with repo inspection such as `rg`, `git status`, or file reads.
+- Adds a `devconcept-core` pre-edit gate requiring visible Mode / Alignment confirmed by / Mini-plan proof before the first mutation.
+- Teaches `aligning-requirements` to prefer Codex `request_user_input` for the `Ready to proceed?` gate when exposed, with Proceed / Revise plan / Stop options and chat fallback when unavailable.
+- Requires literal final handoff headings for non-trivial code changes.
+- Updates manual smoke tests for the new bootstrap, alignment, pre-edit, and final-handoff gates.
+- Bumps Claude, Codex, and marketplace metadata to `0.6.8`.
+
 ### 0.6.7
 
 - Strengthens alignment so an emitted alignment block is a hard stop and silence is never approval.

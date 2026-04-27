@@ -122,6 +122,23 @@ Do not keep Full Mode ceremony after the risk has been reduced.
 - Subagent review: use before accepting code written by an implementer subagent.
 - Finishing work: use before final handoff after code changes, generated artifacts, subagent work, or completion claims.
 
+## Pre-Edit Gate
+
+Before any `apply_patch`, Edit/Write tool, file rewrite, installer, migration, formatter that rewrites files, or other mutating Bash command, prove the gate state:
+
+```md
+Mode:
+Alignment confirmed by:
+Mini-plan:
+```
+
+Rules:
+- For Lean Mode exact edits, `Alignment confirmed by:` and `Mini-plan:` may be `Not required - Lean exact edit`.
+- For Standard and Full Mode, if alignment has not been printed and explicitly confirmed after the alignment block, stop and use `aligning-requirements`.
+- For Standard and Full Mode, if the mini-plan has not been printed, print it before editing.
+- For Full Mode, run plan review after the mini-plan and before editing.
+- A user's original task message, silence, or continuing tool calls is not alignment confirmation.
+
 ## Plan Review Rules
 
 ## Full Mode Plan-Review Gate

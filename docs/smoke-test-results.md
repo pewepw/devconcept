@@ -25,6 +25,19 @@ Copy this block when adding a new entry.
 
 <!-- Append new entries below, newest first. -->
 
+### 2026-04-27 — Codex — 0.6.8 workflow gate release
+
+- Date: 2026-04-27
+- Runtime: Codex
+- Repo: `/Users/harry/Desktop/BuiltByHarry/devconcept`
+- Task: Tighten Codex bootstrap anti-batching, Standard/Full pre-edit gate proof, Codex `request_user_input` alignment confirmation, and literal final handoff headings; deploy as `0.6.8`.
+- Expected mode: Full
+- Observed mode: Full
+- Agents used: None; inline plan review used.
+- Verification: JSON manifests parsed; shell syntax checked for `scripts/sync-codex-agents.sh`; strict YAML frontmatter parsed for every `skills/*/SKILL.md` through Ruby; `git diff --check` passed; Codex templates synced to `~/.codex/agents`; `0.6.8` Claude and Codex runtime caches built and manifest versions checked.
+- Issues found: Runtime-only Claude/Codex host smoke tests were not executed inside this release shell. The `request_user_input` overlay was not exercised because the current Codex session is not in an allowed mode.
+- Follow-ups: Restart or update plugin hosts, then run manual Lean / Standard / Full / dispatch smoke tests against `0.6.8`.
+
 ### 2026-04-27 — Codex — 0.6.7 workflow gates release
 
 - Date: 2026-04-27

@@ -7,6 +7,7 @@ Record per-run notes in [`smoke-test-results.md`](smoke-test-results.md).
 ## Bootstrap
 
 - [ ] `using-devconcept` / `devconcept-core` is loaded before the assistant inspects files, analyzes the task, or asks clarifying questions.
+- [ ] The first assistant tool-call batch contains only the bootstrap/core load, not `rg`, `git status`, repo file reads, screenshots, or other inspection calls.
 - [ ] Mode classification (Lean / Standard / Full) is consistent with the task's actual risk and scope.
 
 ## Lean Mode
@@ -24,10 +25,12 @@ Run on a real trivial, exact, or read-only edit (typo, mechanical rename, single
 Run on a real small bug fix or behavior change in code you control.
 
 - [ ] Minimal repo context gathered before edits.
-- [ ] Requirements alignment used before edits.
-- [ ] Concise mini-plan printed (Goal / Files / Intended change / Verification / Rollback).
+- [ ] Requirements alignment used before edits and explicitly confirmed after the alignment block.
+- [ ] In Codex modes where `request_user_input` is exposed, the Ready to proceed gate uses that tool with Proceed / Revise plan / Stop options.
+- [ ] Concise mini-plan printed before edits (Goal / Files / Intended change / Verification / Rollback).
+- [ ] Pre-edit gate is visible before the first mutation: Mode / Alignment confirmed by / Mini-plan.
 - [ ] TDD used when a practical behavior test surface exists; if skipped, the reason is stated before coding.
-- [ ] Final handoff includes Changed / Verified / Risk / Review starts at / Skills or agents used / Relevant skipped or missed workflow.
+- [ ] Final handoff uses the literal headings Changed / Verified / Risk / not done / Review starts at / Skills / agents used / Relevant skipped or missed workflow.
 
 ## Vague Feature Request
 
@@ -58,7 +61,7 @@ Run on a real failure where several tests likely share one cause.
 
 ## Final Handoff
 
-- [ ] Final answer includes Changed / Verified / Risk / Review starts at / Skills or agents used / Relevant skipped or missed workflow.
+- [ ] Final answer uses the literal headings Changed / Verified / Risk / not done / Review starts at / Skills / agents used / Relevant skipped or missed workflow.
 - [ ] Verification evidence is present (command output, file/line proof) or the reason verification is blocked is stated.
 - [ ] Skipped default-trigger skills are named, with a reason, when the skip is knowable from the current scope.
 - [ ] Meaningful deviations from the approved plan are reported.

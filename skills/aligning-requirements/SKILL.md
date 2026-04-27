@@ -40,7 +40,7 @@ Skip for:
 
 ## Alignment Block
 
-Post this in chat and stop:
+Prepare this alignment block:
 
 - **Understanding** — 1-3 bullets restating the root goal.
 - **Scope** — files, modules, or surfaces you expect to touch.
@@ -48,15 +48,47 @@ Post this in chat and stop:
 - **Proposed approach** — one short paragraph at shape-of-solution level.
 - **Ready to proceed?** — explicit pause.
 
+In Codex, if `request_user_input` is exposed in the current mode, use that tool for the `Ready to proceed?` gate instead of relying only on a plain chat question. Do not call it with empty options. Use one question:
+
+```json
+{
+  "questions": [
+    {
+      "id": "ready_to_proceed",
+      "header": "Proceed",
+      "question": "Ready to proceed?",
+      "options": [
+        {
+          "label": "Proceed (Recommended)",
+          "description": "Continue with the proposed scope and plan."
+        },
+        {
+          "label": "Revise plan",
+          "description": "Pause so the plan can be changed before implementation."
+        },
+        {
+          "label": "Stop",
+          "description": "Do not make code changes."
+        }
+      ]
+    }
+  ]
+}
+```
+
+If `request_user_input` is unavailable in the current mode, print the alignment block in chat, end with `Ready to proceed?`, and stop.
+
 Wait for an explicit yes, correction, or answer to open questions. Silence is not approval.
 
 ## Hard Stop After Alignment
 
-When an alignment block is printed, the assistant response must end there.
+When an alignment block is printed in chat, the assistant response must end there.
 
-Do not call tools, update plans, edit files, apply patches, run mutating Bash commands, or continue implementation after the alignment block in the same turn.
+Do not call other tools, update plans, edit files, apply patches, run mutating Bash commands, or continue implementation after the alignment gate in the same turn.
 
-The next action must wait for explicit user confirmation, correction, or opt-out.
+The next action must wait for explicit user confirmation, correction, or opt-out in a later user message or a returned `request_user_input` selection. The original task request, silence, assistant enthusiasm, or an unrelated tool result is not confirmation.
+
+If `request_user_input` returns `Proceed`, that selected option is the confirmation source for the pre-edit gate. If it returns `Revise plan` or `Stop`, do not edit; revise the plan or stop as requested.
 
 Silence is not approval.
 
@@ -91,6 +123,7 @@ Rules:
 - If the user's response changes scope, post a short addendum before editing.
 - If the user says "just do it" or otherwise opts out, proceed and state that you are proceeding without the alignment pause.
 - Keep implementation details out of the alignment block. Mini-spec belongs in `devconcept-core`; durable planning belongs in `planning-ledger`.
+- After confirmation or opt-out, satisfy the `devconcept-core` pre-edit gate before editing: mode, alignment confirmation source, and mini-plan.
 
 ## Handoff
 

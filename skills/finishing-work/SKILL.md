@@ -47,6 +47,8 @@ If subagents wrote code, mention that their output was reviewed through `subagen
 
 ## Expected Output
 
+For non-trivial code changes, use these literal headings even when the answer is short. Do not omit a heading because the section is empty; write `None.` or the blocker instead.
+
 ```md
 Changed:
 - ...

@@ -95,6 +95,7 @@ Manual workflow checks live in [`docs/manual-smoke-tests.md`](docs/manual-smoke-
 
 ## Versioning
 
+- `0.6.8` - Tightens the Codex smoke-test failure points from the SMS Blast eval: bootstrap must be the only first tool batch, Standard/Full edits require a visible pre-edit gate with mode, alignment confirmation, and mini-plan, alignment can use Codex `request_user_input` with Proceed / Revise plan / Stop options when exposed, and non-trivial final handoffs must keep the literal required headings.
 - `0.6.7` - Strengthens the DevConcept gates from Codex smoke-test evidence: alignment now hard-stops after the block, Full Mode escalation covers backend/frontend, multi-file, trust-boundary, policy/rules, and broad-regression cases, Full Mode requires plan review before edits, final handoffs require review-starts-at, skills/agents used, and skipped-workflow disclosure, and the partial Codex Desktop SMS Blast run is recorded in smoke-test results.
 - `0.6.6` - Quotes the `dispatching-agents` skill description frontmatter so strict YAML parsers accept the colon in "dispatch triggers hit: ..."; bumps Claude, Codex, and marketplace metadata to `0.6.6`.
 - `0.6.5` - Releases the review cleanup: removes plugin-owned `.devconcept/` working state from the package, refreshes PRD and README dispatch wording around named DevConcept agents and `<next-version>`, softens TDD questioning, adds inline plan-review fallback, and tightens read-only Bash safety rules across native agents and Codex templates.
