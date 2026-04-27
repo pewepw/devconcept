@@ -97,11 +97,20 @@ Replace `<next-version>` with the target version (for example `0.6.2`). The chec
 - [ ] Run Full smoke test in a real repo.
 - [ ] Run dispatch smoke test in Claude Code.
 - [ ] Run dispatch smoke test in Codex.
-- [ ] Confirm final handoffs include changed, verified, risk, review-starts-at, skills/agents used, and skipped-workflow sections.
+- [ ] Confirm final handoffs include changed, verified, risk, skills/agents used, dispatch/review, and skipped-workflow sections.
 - [ ] Append a row to `docs/smoke-test-results.md`.
 - [ ] Tag release and push.
 
 ## Release Notes
+
+### 6.9.0
+
+- Aligns Codex dispatch rules with Codex subagent behavior: Codex must be explicitly asked before spawning agents unless the user already requested subagents or parallel agent work.
+- Adds a Full Mode dispatch decision gate so broad work records `dispatch` versus `inline` with a reason.
+- Requires a review pass for broad or high-risk Full Mode work, using `devconcept-code-reviewer` when allowed or an inline review checklist when agent review is unavailable or declined.
+- Updates manual smoke tests and final handoff expectations to report Dispatch / review.
+- Removes mandatory review-start pointers from final handoffs.
+- Bumps Claude, Codex, and marketplace metadata to `6.9.0`.
 
 ### 0.6.8
 
@@ -117,7 +126,7 @@ Replace `<next-version>` with the target version (for example `0.6.2`). The chec
 - Strengthens alignment so an emitted alignment block is a hard stop and silence is never approval.
 - Adds mandatory Full Mode escalation triggers for backend/frontend, more-than-five-file, trust-boundary, product/API/rules/tests, and broad-regression changes.
 - Requires Full Mode plan review before edits, with explicit `PASS`, `PASS WITH WARNINGS`, and `BLOCKED` verdicts and a reminder that `update_plan` is not plan review.
-- Expands final handoff contracts to include `Review starts at`, skills/agents used, and relevant skipped or missed workflow disclosure.
+- Expands final handoff contracts to include skills/agents used and relevant skipped or missed workflow disclosure.
 - Adds the partial Codex Desktop SMS Blast smoke-test evidence.
 - Bumps Claude, Codex, and marketplace metadata to `0.6.7`.
 

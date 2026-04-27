@@ -54,7 +54,7 @@ Behavior:
 - use TDD when practical
 - implement surgically
 - verify affected behavior
-- finish with changed / verified / risk / review-starts-at / skills-or-agents-used / skipped-workflow summary
+- finish with changed / verified / risk / skills-or-agents-used / dispatch-review / skipped-workflow summary
 
 ### Full Mode
 
@@ -73,7 +73,8 @@ Behavior:
 - align requirements
 - write a plan or planning ledger
 - run plan review before implementation
-- dispatch agents only for separable work
+- make an explicit dispatch decision; dispatch agents only for separable work and only when the runtime/user allows it
+- run an agent or inline review pass before final handoff when Full Mode touches high-risk or broad surfaces
 - review subagent-written code before accepting it
 - verify integrated behavior before handoff
 
@@ -118,7 +119,7 @@ Do not keep Full Mode ceremony after the risk has been reduced.
 - TDD: use for bug fixes and behavior-heavy changes when a practical behavior test surface exists.
 - Systematic debugging: use before fixes when symptoms are intermittent, cross-module, unclear, or likely share one root cause.
 - Design alternatives: use when a new interface, module, or refactor has real tradeoffs not settled by repo convention.
-- Dispatching agents: use when context-budget rules justify read-only exploration, plan review, review, debugging, or bounded worker slices. In Claude Code prefer the named DevConcept agents directly; in Codex invoke them by name in plain English (for example, "Have `devconcept-explorer` map <area> read-only").
+- Dispatching agents: use when context-budget rules justify read-only exploration, plan review, review, debugging, or bounded worker slices. In Claude Code prefer the named DevConcept agents directly. In Codex, subagents require an explicit user ask; when triggers hit, present a spawn-vs-inline choice unless the user already requested subagents.
 - Subagent review: use before accepting code written by an implementer subagent.
 - Finishing work: use before final handoff after code changes, generated artifacts, subagent work, or completion claims.
 
@@ -179,6 +180,37 @@ Return:
 - `PASS` only if implementation can start safely
 - `PASS WITH WARNINGS` when implementation can start, but risks or verification gaps must be called out
 - `BLOCKED` if blockers exist
+
+## Full Mode Dispatch and Review Gates
+
+Full Mode does not mean "always spawn agents." It means dispatch must be considered and reported.
+
+Before implementation in Full Mode, state:
+
+```md
+Dispatch decision:
+- dispatch | inline
+Reason:
+- ...
+```
+
+In Codex, do not spawn subagents unless the user explicitly asks for subagents or chooses a spawn option. If dispatch would help but Codex does not yet have explicit permission, ask with a short spawn-vs-inline choice. Continue inline only when agent dispatch is unavailable or the user chooses inline; do not treat silence as permission.
+
+Before final handoff in Full Mode, run a review pass when any trigger is true:
+
+- backend and frontend both changed
+- trust boundaries changed, including auth, permissions, billing, quotas, entitlements, persistence, privacy, compliance, or security
+- database or Firestore rules, indexes, migrations, or data model behavior changed
+- more than 10 files changed
+
+Use `devconcept-code-reviewer` when the runtime/user allows it. Otherwise run the same review checklist inline and report the path:
+
+```md
+Review pass:
+- agent | inline | skipped + reason
+Findings:
+- ...
+```
 
 ## Implementation Deviation Protocol
 
@@ -245,9 +277,9 @@ Verified:
 - command/result, file/line proof, or blocked + reason
 Risk / not done:
 - ...
-Review starts at:
-- ...
 Skills / agents used:
+- ...
+Dispatch / review:
 - ...
 Relevant skipped or missed workflow:
 - ...

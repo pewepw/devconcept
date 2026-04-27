@@ -20,7 +20,7 @@ DevConcept routes each task internally as Lean, Standard, or Full.
 | --- | --- | --- |
 | Lean | Trivial, exact, mechanical, or read-only work | Inspect if needed, act directly, no alignment block, no plan file, no agents, narrow verification. |
 | Standard | Normal code changes where correctness matters | Gather minimal context, align requirements, write a concise mini-plan, use TDD when practical, implement, verify, summarize. |
-| Full | Risky, ambiguous, cross-surface, long-running, or multi-agent work | Plan, review the plan, dispatch only separable work, review subagent output, verify integrated behavior, hand off with residual risk. |
+| Full | Risky, ambiguous, cross-surface, long-running, or multi-agent work | Plan, review the plan, make an explicit dispatch decision, dispatch only when allowed and separable, run an agent or inline review pass for broad/high-risk work, verify integrated behavior, hand off with residual risk. |
 
 Debugging, design alternatives, TDD, dispatch, and subagent review are playbooks inside these three modes rather than separate top-level modes.
 
@@ -35,7 +35,7 @@ Debugging, design alternatives, TDD, dispatch, and subagent review are playbooks
 - **systematic-debugging** - Root-cause debugging loop for intermittent, cross-module, unclear, or shared-cause failures.
 - **design-alternatives** - Three-option design exploration for interfaces, modules, and refactors with real tradeoffs.
 - **subagent-review** - Two-stage review of implementer subagent output: spec compliance, then code quality.
-- **finishing-work** - Final completion gate with changed, verified, risk, review-starts-at, skills/agents used, and skipped-workflow disclosure.
+- **finishing-work** - Final completion gate with changed, verified, risk, skills/agents used, dispatch/review, and skipped-workflow disclosure.
 - **compound-engineering** - Captures durable repo-wide learnings into project instruction files.
 
 ## DevConcept Agents
@@ -58,7 +58,7 @@ scripts/sync-codex-agents.sh
 
 Claude Code should prefer named DevConcept agents when dispatch triggers hit. If the agents are unavailable, use the closest built-in agent or inline the same contract.
 
-Codex requires explicit subagent phrasing. When dispatch is appropriate and allowed, name the DevConcept agent rather than the generic word "subagent":
+Codex does not spawn subagents automatically. When dispatch is appropriate, ask the user to choose between spawning agents and continuing inline unless they already explicitly requested subagents or parallel agent work. If spawning is chosen, name the DevConcept agent rather than the generic word "subagent":
 
 - Have `devconcept-explorer` map `<area>` read-only and return Findings, Relevant files, Risks / unknowns, Recommended next step.
 - Have `devconcept-plan-reviewer` review the plan above against the Plan Review Checklist before implementation.
@@ -81,6 +81,8 @@ If the named DevConcept agents are not synced into Codex, run `scripts/sync-code
 
 Do not dispatch workers when failures likely share one root cause, architecture is unresolved, write ownership overlaps, or the main agent can do the work safely.
 
+For broad or high-risk Full Mode work, prefer a `devconcept-code-reviewer` pass before final handoff when the runtime and user allow it. If Codex does not have explicit permission to spawn a reviewer, offer `Spawn reviewer` versus `Inline review`; report which path was used.
+
 ## Examples
 
 - Exact typo or label rename: Lean Mode, no alignment block, narrow verification.
@@ -95,8 +97,9 @@ Manual workflow checks live in [`docs/manual-smoke-tests.md`](docs/manual-smoke-
 
 ## Versioning
 
+- `6.9.0` - Clarifies Codex subagent dispatch: Full Mode now requires an explicit dispatch decision, Codex must ask before spawning agents unless the user already requested them, broad/high-risk Full Mode work needs an agent or inline review pass before handoff, and final handoffs no longer include review-start pointers.
 - `0.6.8` - Tightens the Codex smoke-test failure points from the SMS Blast eval: bootstrap must be the only first tool batch, Standard/Full edits require a visible pre-edit gate with mode, alignment confirmation, and mini-plan, alignment can use Codex `request_user_input` with Proceed / Revise plan / Stop options when exposed, and non-trivial final handoffs must keep the literal required headings.
-- `0.6.7` - Strengthens the DevConcept gates from Codex smoke-test evidence: alignment now hard-stops after the block, Full Mode escalation covers backend/frontend, multi-file, trust-boundary, policy/rules, and broad-regression cases, Full Mode requires plan review before edits, final handoffs require review-starts-at, skills/agents used, and skipped-workflow disclosure, and the partial Codex Desktop SMS Blast run is recorded in smoke-test results.
+- `0.6.7` - Strengthens the DevConcept gates from Codex smoke-test evidence: alignment now hard-stops after the block, Full Mode escalation covers backend/frontend, multi-file, trust-boundary, policy/rules, and broad-regression cases, Full Mode requires plan review before edits, final handoffs require skills/agents used and skipped-workflow disclosure, and the partial Codex Desktop SMS Blast run is recorded in smoke-test results.
 - `0.6.6` - Quotes the `dispatching-agents` skill description frontmatter so strict YAML parsers accept the colon in "dispatch triggers hit: ..."; bumps Claude, Codex, and marketplace metadata to `0.6.6`.
 - `0.6.5` - Releases the review cleanup: removes plugin-owned `.devconcept/` working state from the package, refreshes PRD and README dispatch wording around named DevConcept agents and `<next-version>`, softens TDD questioning, adds inline plan-review fallback, and tightens read-only Bash safety rules across native agents and Codex templates.
 - `0.6.4` - Removes the committed `.devconcept/` working state from the plugin package and gitignores it (planning ledgers belong in user repos, not the plugin); refreshes the README dispatch example to use named DevConcept agents (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`); softens the TDD planning step so the model answers from request and repo context first and only asks the user when the answer would change implementation direction or product behavior; adds a `## Must Not` block to all four read-only agents (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`) forbidding mutating Bash and listing safe inspection commands; adds an inline fallback to the `devconcept-core` Plan Review Rules so the checklist still runs when `devconcept-plan-reviewer` cannot be dispatched; updates `docs/prd-devconcept-v0.6.md` to use `<next-version>` and the v0.6.x line instead of the original `0.6.0` checklist targets.

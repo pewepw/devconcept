@@ -39,8 +39,8 @@ Keep the final response human-friendly:
 - What changed.
 - How it was verified.
 - Remaining risk or anything not done.
-- Where review should start for non-trivial changes.
 - Skills or agents used.
+- Dispatch and review decision for Full Mode work.
 - Relevant skipped or missed DevConcept workflow gates.
 
 If subagents wrote code, mention that their output was reviewed through `subagent-review`.
@@ -59,10 +59,10 @@ Verified:
 Risk / not done:
 - ...
 
-Review starts at:
+Skills / agents used:
 - ...
 
-Skills / agents used:
+Dispatch / review:
 - ...
 
 Relevant skipped or missed workflow:

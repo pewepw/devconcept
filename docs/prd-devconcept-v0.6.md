@@ -284,7 +284,7 @@ Behavior:
 - use TDD when practical
 - implement surgically
 - verify affected behavior
-- finish with changed / verified / risk / review-starts-at / skills-or-agents-used / skipped-workflow summary
+- finish with changed / verified / risk / skills-or-agents-used / skipped-workflow summary
 
 ### Full Mode
 Use for risky, ambiguous, cross-surface, long-running, or multi-agent work.
@@ -532,7 +532,7 @@ When dispatch triggers hit, prefer named DevConcept agents:
 If DevConcept agents are unavailable, use the closest built-in agent or inline the same prompt contract.
 
 ### Codex
-Codex does not spawn subagents unless explicitly asked. When dispatch triggers hit, say the dispatch request literally.
+Codex does not spawn subagents unless explicitly asked. When dispatch triggers hit, ask the user to choose between spawning agents and continuing inline unless the user already requested subagents or parallel agent work. If the user chooses spawn, say the dispatch request literally.
 
 Examples:
 
@@ -792,9 +792,6 @@ Verified:
 Risk / not done:
 - ...
 
-Review starts at:
-- ...
-
 Skills / agents used:
 - ...
 
@@ -806,7 +803,7 @@ Relevant skipped or missed workflow:
 
 - Every core skill has an `Expected Output` section.
 - Lean Mode remains concise despite output contracts.
-- Final summaries consistently include changed, verified, residual risk, review-starts-at, skills/agents used, and skipped-workflow information.
+- Final summaries consistently include changed, verified, residual risk, skills/agents used, and skipped-workflow information.
 
 ---
 
@@ -860,7 +857,7 @@ Update plugin manifests:
 - [ ] Run Full smoke test in a real repo.
 - [ ] Run dispatch smoke test in Claude Code.
 - [ ] Run dispatch smoke test in Codex.
-- [ ] Confirm final handoffs include changed, verified, risk, review-starts-at, skills/agents used, and skipped-workflow sections.
+- [ ] Confirm final handoffs include changed, verified, risk, skills/agents used, and skipped-workflow sections.
 - [ ] Tag release and push.
 ```
 
@@ -1041,7 +1038,7 @@ Deliverable:
 Acceptance:
 
 - Non-trivial work shows understanding/scope/questions/approach before edits.
-- Final summaries include changed, verified, risk/not done, review-starts-at, skills/agents used, and skipped-workflow disclosure.
+- Final summaries include changed, verified, risk/not done, skills/agents used, and skipped-workflow disclosure.
 - Output contracts do not create heavy ceremony for exact edits.
 
 ---

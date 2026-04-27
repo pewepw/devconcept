@@ -30,7 +30,7 @@ Run on a real small bug fix or behavior change in code you control.
 - [ ] Concise mini-plan printed before edits (Goal / Files / Intended change / Verification / Rollback).
 - [ ] Pre-edit gate is visible before the first mutation: Mode / Alignment confirmed by / Mini-plan.
 - [ ] TDD used when a practical behavior test surface exists; if skipped, the reason is stated before coding.
-- [ ] Final handoff uses the literal headings Changed / Verified / Risk / not done / Review starts at / Skills / agents used / Relevant skipped or missed workflow.
+- [ ] Final handoff uses the literal headings Changed / Verified / Risk / not done / Skills / agents used / Dispatch / review / Relevant skipped or missed workflow.
 
 ## Vague Feature Request
 
@@ -45,10 +45,13 @@ Run on a real repo with an underspecified feature ask.
 Run on a real repo with multiple independent modules to map or change.
 
 - [ ] Plan review runs before implementation.
+- [ ] Dispatch decision is explicit: spawn agents or continue inline, with a reason.
+- [ ] Codex asks before spawning subagents unless the user already explicitly requested subagents or parallel agent work.
 - [ ] Read-only exploration is parallelized only when areas are independent.
 - [ ] Claude Code path uses named DevConcept agents (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-worker`, `devconcept-code-reviewer`, `devconcept-debugger`).
 - [ ] Codex path uses explicit named-agent phrasing in plain English, or literal spawn phrasing for parallel batches.
 - [ ] Worker dispatch is used only for disjoint, bounded slices.
+- [ ] Broad or high-risk Full Mode work runs `devconcept-code-reviewer` when allowed, or an inline review checklist when agent review is unavailable or declined.
 - [ ] Subagent-written code is reviewed before acceptance.
 
 ## Shared-Root-Cause Debugging
@@ -61,7 +64,8 @@ Run on a real failure where several tests likely share one cause.
 
 ## Final Handoff
 
-- [ ] Final answer uses the literal headings Changed / Verified / Risk / not done / Review starts at / Skills / agents used / Relevant skipped or missed workflow.
+- [ ] Final answer uses the literal headings Changed / Verified / Risk / not done / Skills / agents used / Dispatch / review / Relevant skipped or missed workflow.
+- [ ] Final answer reports Dispatch / review for Full Mode work.
 - [ ] Verification evidence is present (command output, file/line proof) or the reason verification is blocked is stated.
 - [ ] Skipped default-trigger skills are named, with a reason, when the skip is knowable from the current scope.
 - [ ] Meaningful deviations from the approved plan are reported.

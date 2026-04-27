@@ -25,6 +25,19 @@ Copy this block when adding a new entry.
 
 <!-- Append new entries below, newest first. -->
 
+### 2026-04-27 — Codex — 6.9.0 Codex dispatch choice rules
+
+- Date: 2026-04-27
+- Runtime: Codex
+- Repo: `/Users/harry/Desktop/BuiltByHarry/devconcept`
+- Task: Align Full Mode dispatch rules with Codex subagent behavior: Codex must ask before spawning agents unless the user already requested subagents, while broad/high-risk Full Mode still needs an agent or inline review pass.
+- Expected mode: Standard
+- Observed mode: Standard
+- Agents used: None; user asked specifically to change the plugin rules, and the edit scope was tightly coupled documentation/skill text.
+- Verification: skill frontmatter parsed with Ruby YAML; plugin JSON manifests parsed; stale dispatch wording searched; `git diff --check` passed.
+- Issues found: Runtime host smoke tests and actual Codex subagent prompt flow were not executed in this shell session.
+- Follow-ups: Run a Codex Full Mode smoke test where the assistant offers `Spawn reviewer` versus `Inline review`, then verify it does not spawn an agent until the user chooses the spawn option.
+
 ### 2026-04-27 — Codex — 0.6.8 workflow gate release
 
 - Date: 2026-04-27

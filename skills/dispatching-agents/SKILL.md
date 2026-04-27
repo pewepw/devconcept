@@ -1,6 +1,6 @@
 ---
 name: dispatching-agents
-description: "Use when DevConcept is active and dispatch triggers hit: multiple unfamiliar files, independent failures, long research, heavy tool output, or parallelizable implementation slices. Defines standing permission, runtime recipes, context-budget rules, and mandatory review."
+description: "Use when DevConcept is active and dispatch triggers hit: multiple unfamiliar files, independent failures, long research, heavy tool output, or parallelizable implementation slices. Defines dispatch decisions, runtime recipes, context-budget rules, and mandatory review."
 ---
 
 # Dispatching Agents
@@ -9,15 +9,15 @@ description: "Use when DevConcept is active and dispatch triggers hit: multiple 
 
 Protect the main context window and shorten wall-clock time. Dispatch is a tool, not a ceremony: use it when a subagent can do bounded work in parallel while the main agent keeps the critical path moving.
 
-## Standing Policy
+## Dispatch Policy
 
-When DevConcept is active, the user has granted standing permission to consider subagents under these rules:
+When DevConcept is active, always consider whether subagents would reduce risk, context load, or wall-clock time. Consideration is not permission to spawn in every runtime.
 
-- **Read-only explorer agents:** allowed automatically when dispatch triggers hit.
-- **Parallel research agents:** allowed automatically when questions are independent.
-- **Code-writing worker agents:** allowed when ownership is clear and write sets are disjoint. Ask first if write scope overlaps, risk is high, or the user's latest instruction implies they want one agent only.
+- **Read-only explorer agents:** prefer when dispatch triggers hit and the runtime/user has allowed subagents.
+- **Parallel research agents:** prefer when questions are independent and the runtime/user has allowed subagents.
+- **Code-writing worker agents:** allowed only when ownership is clear and write sets are disjoint. Ask first if write scope overlaps, risk is high, or the user's latest instruction implies they want one agent only.
 
-Never dispatch when platform, project, or user instructions forbid it. If the runtime requires explicit permission for subagents despite this policy, ask once and continue inline if unavailable.
+Never dispatch when platform, project, or user instructions forbid it. If the runtime requires explicit permission for subagents, ask once and continue inline if unavailable or declined.
 
 ## When To Dispatch
 
@@ -61,7 +61,19 @@ If DevConcept agents are unavailable, use the closest built-in agent or inline t
 
 ### Codex
 
-Codex does not spawn subagents unless explicitly asked in the conversation. Codex custom agents live in `~/.codex/agents/` as TOML files. When dispatch triggers hit and subagents are allowed, ask for them by name in plain English so Codex routes to the matching DevConcept TOML.
+Codex does not spawn subagents unless explicitly asked in the conversation. DevConcept plugin instructions alone are not enough. Codex custom agents live in `~/.codex/agents/` as TOML files.
+
+When dispatch triggers hit in Codex, present a short choice unless the user has already explicitly asked for subagents or parallel agent work:
+
+```md
+Dispatch option:
+1. Spawn DevConcept agents - recommended when the work is broad, read-heavy, or high-risk.
+2. Continue inline - lower token/cost overhead; run the same checklist locally.
+
+Which do you prefer?
+```
+
+If the user chooses spawn, ask for agents by name in plain English so Codex routes to the matching DevConcept TOML. If the user chooses inline, continue inline using the same checklist and report that dispatch was declined. If the user does not answer, do not spawn agents and do not treat silence as permission.
 
 Prefer named-agent phrasing first:
 
@@ -87,6 +99,29 @@ Each subagent must return: Findings, Relevant files, Risks / unknowns, Recommend
 If the named DevConcept agents are not synced into Codex, ask the user to run `scripts/sync-codex-agents.sh --user`, or fall back to the closest built-in agent and inline the same contract.
 
 If the current Codex session does not allow subagents at all, continue inline using the same contracts and report that dispatch was skipped because subagents were unavailable.
+
+## Full Mode Review Pass
+
+Before final handoff, require a review pass for Full Mode work when any trigger is true:
+
+- backend and frontend both changed
+- trust boundaries changed, including auth, permissions, billing, quotas, entitlements, persistence, privacy, compliance, or security
+- database or Firestore rules, indexes, migrations, or data model behavior changed
+- more than 10 files changed
+
+In Claude Code, prefer `devconcept-code-reviewer` when available. In Codex, ask explicitly before spawning `devconcept-code-reviewer` unless the user already requested subagents:
+
+```md
+This Full Mode change is broad or high-risk.
+
+Review option:
+1. Spawn `devconcept-code-reviewer` to review correctness, scope drift, and verification gaps. Recommended.
+2. Continue inline and run the same review checklist locally.
+
+Which do you prefer?
+```
+
+If agent review is unavailable or declined, run the review checklist inline before final handoff. If the user does not answer a Codex review choice, do not spawn the reviewer and do not treat silence as permission. Report which path was used.
 
 ## Context-Budget Dispatch Rules
 
