@@ -97,11 +97,20 @@ Replace `<next-version>` with the target version (for example `0.6.2`). The chec
 - [ ] Run Full smoke test in a real repo.
 - [ ] Run dispatch smoke test in Claude Code.
 - [ ] Run dispatch smoke test in Codex.
-- [ ] Confirm final handoffs include changed, verified, risk, and review-first sections.
+- [ ] Confirm final handoffs include changed, verified, risk, review-starts-at, skills/agents used, and skipped-workflow sections.
 - [ ] Append a row to `docs/smoke-test-results.md`.
 - [ ] Tag release and push.
 
 ## Release Notes
+
+### 0.6.7
+
+- Strengthens alignment so an emitted alignment block is a hard stop and silence is never approval.
+- Adds mandatory Full Mode escalation triggers for backend/frontend, more-than-five-file, trust-boundary, product/API/rules/tests, and broad-regression changes.
+- Requires Full Mode plan review before edits, with explicit `PASS`, `PASS WITH WARNINGS`, and `BLOCKED` verdicts and a reminder that `update_plan` is not plan review.
+- Expands final handoff contracts to include `Review starts at`, skills/agents used, and relevant skipped or missed workflow disclosure.
+- Adds the partial Codex Desktop SMS Blast smoke-test evidence.
+- Bumps Claude, Codex, and marketplace metadata to `0.6.7`.
 
 ### 0.6.6
 

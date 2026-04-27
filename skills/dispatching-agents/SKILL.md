@@ -32,6 +32,20 @@ Dispatch when any trigger hits and the work can be bounded:
 
 Skip dispatch for known files, single-file edits, output you must inspect verbatim, shared-root-cause debugging, or any task where dispatch overhead exceeds the value.
 
+## Full Mode Plan-Review Gate
+
+Before the first edit in Full Mode, run `devconcept-plan-reviewer`.
+
+If the runtime cannot dispatch `devconcept-plan-reviewer`, run the same plan-review checklist inline and print the verdict before editing.
+
+The plan-review verdict must be one of:
+
+- `PASS` - proceed;
+- `PASS WITH WARNINGS` - proceed, but call out risks;
+- `BLOCKED` - ask the user or revise the plan before implementation.
+
+`update_plan` is not a substitute for plan review.
+
 ## Runtime Dispatch Recipes
 
 ### Claude Code

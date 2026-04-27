@@ -50,6 +50,16 @@ Post this in chat and stop:
 
 Wait for an explicit yes, correction, or answer to open questions. Silence is not approval.
 
+## Hard Stop After Alignment
+
+When an alignment block is printed, the assistant response must end there.
+
+Do not call tools, update plans, edit files, apply patches, run mutating Bash commands, or continue implementation after the alignment block in the same turn.
+
+The next action must wait for explicit user confirmation, correction, or opt-out.
+
+Silence is not approval.
+
 ## Expected Output
 
 For Standard and Full Mode work before edits:

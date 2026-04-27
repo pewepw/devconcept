@@ -284,7 +284,7 @@ Behavior:
 - use TDD when practical
 - implement surgically
 - verify affected behavior
-- finish with changed / verified / risk / review-first summary
+- finish with changed / verified / risk / review-starts-at / skills-or-agents-used / skipped-workflow summary
 
 ### Full Mode
 Use for risky, ambiguous, cross-surface, long-running, or multi-agent work.
@@ -792,7 +792,7 @@ Verified:
 Risk / not done:
 - ...
 
-Review first:
+Review starts at:
 - ...
 
 Skills / agents used:
@@ -806,7 +806,7 @@ Relevant skipped or missed workflow:
 
 - Every core skill has an `Expected Output` section.
 - Lean Mode remains concise despite output contracts.
-- Final summaries consistently include changed, verified, residual risk, and review-first information.
+- Final summaries consistently include changed, verified, residual risk, review-starts-at, skills/agents used, and skipped-workflow information.
 
 ---
 
@@ -860,7 +860,7 @@ Update plugin manifests:
 - [ ] Run Full smoke test in a real repo.
 - [ ] Run dispatch smoke test in Claude Code.
 - [ ] Run dispatch smoke test in Codex.
-- [ ] Confirm final handoffs include changed, verified, risk, and review-first sections.
+- [ ] Confirm final handoffs include changed, verified, risk, review-starts-at, skills/agents used, and skipped-workflow sections.
 - [ ] Tag release and push.
 ```
 
@@ -1041,7 +1041,7 @@ Deliverable:
 Acceptance:
 
 - Non-trivial work shows understanding/scope/questions/approach before edits.
-- Final summaries include changed, verified, risk/not done, and review-first.
+- Final summaries include changed, verified, risk/not done, review-starts-at, skills/agents used, and skipped-workflow disclosure.
 - Output contracts do not create heavy ceremony for exact edits.
 
 ---

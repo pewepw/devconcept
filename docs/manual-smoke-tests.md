@@ -27,7 +27,7 @@ Run on a real small bug fix or behavior change in code you control.
 - [ ] Requirements alignment used before edits.
 - [ ] Concise mini-plan printed (Goal / Files / Intended change / Verification / Rollback).
 - [ ] TDD used when a practical behavior test surface exists; if skipped, the reason is stated before coding.
-- [ ] Final handoff includes Changed / Verified / Risk / Review first.
+- [ ] Final handoff includes Changed / Verified / Risk / Review starts at / Skills or agents used / Relevant skipped or missed workflow.
 
 ## Vague Feature Request
 
@@ -58,7 +58,7 @@ Run on a real failure where several tests likely share one cause.
 
 ## Final Handoff
 
-- [ ] Final answer includes Changed / Verified / Risk / Review first.
+- [ ] Final answer includes Changed / Verified / Risk / Review starts at / Skills or agents used / Relevant skipped or missed workflow.
 - [ ] Verification evidence is present (command output, file/line proof) or the reason verification is blocked is stated.
 - [ ] Skipped default-trigger skills are named, with a reason, when the skip is knowable from the current scope.
 - [ ] Meaningful deviations from the approved plan are reported.

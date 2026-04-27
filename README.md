@@ -35,7 +35,7 @@ Debugging, design alternatives, TDD, dispatch, and subagent review are playbooks
 - **systematic-debugging** - Root-cause debugging loop for intermittent, cross-module, unclear, or shared-cause failures.
 - **design-alternatives** - Three-option design exploration for interfaces, modules, and refactors with real tradeoffs.
 - **subagent-review** - Two-stage review of implementer subagent output: spec compliance, then code quality.
-- **finishing-work** - Final completion gate with changed, verified, risk, and review-first handoff.
+- **finishing-work** - Final completion gate with changed, verified, risk, review-starts-at, skills/agents used, and skipped-workflow disclosure.
 - **compound-engineering** - Captures durable repo-wide learnings into project instruction files.
 
 ## DevConcept Agents
@@ -95,6 +95,7 @@ Manual workflow checks live in [`docs/manual-smoke-tests.md`](docs/manual-smoke-
 
 ## Versioning
 
+- `0.6.7` - Strengthens the DevConcept gates from Codex smoke-test evidence: alignment now hard-stops after the block, Full Mode escalation covers backend/frontend, multi-file, trust-boundary, policy/rules, and broad-regression cases, Full Mode requires plan review before edits, final handoffs require review-starts-at, skills/agents used, and skipped-workflow disclosure, and the partial Codex Desktop SMS Blast run is recorded in smoke-test results.
 - `0.6.6` - Quotes the `dispatching-agents` skill description frontmatter so strict YAML parsers accept the colon in "dispatch triggers hit: ..."; bumps Claude, Codex, and marketplace metadata to `0.6.6`.
 - `0.6.5` - Releases the review cleanup: removes plugin-owned `.devconcept/` working state from the package, refreshes PRD and README dispatch wording around named DevConcept agents and `<next-version>`, softens TDD questioning, adds inline plan-review fallback, and tightens read-only Bash safety rules across native agents and Codex templates.
 - `0.6.4` - Removes the committed `.devconcept/` working state from the plugin package and gitignores it (planning ledgers belong in user repos, not the plugin); refreshes the README dispatch example to use named DevConcept agents (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`); softens the TDD planning step so the model answers from request and repo context first and only asks the user when the answer would change implementation direction or product behavior; adds a `## Must Not` block to all four read-only agents (`devconcept-explorer`, `devconcept-plan-reviewer`, `devconcept-code-reviewer`, `devconcept-debugger`) forbidding mutating Bash and listing safe inspection commands; adds an inline fallback to the `devconcept-core` Plan Review Rules so the checklist still runs when `devconcept-plan-reviewer` cannot be dispatched; updates `docs/prd-devconcept-v0.6.md` to use `<next-version>` and the v0.6.x line instead of the original `0.6.0` checklist targets.

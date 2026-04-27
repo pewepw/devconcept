@@ -15,6 +15,8 @@ Not ceremonial by default, but rigorous when the risk justifies it. The minimum 
 
 Before acting, classify the task internally as Lean, Standard, or Full. Use the minimum mode that can complete the work correctly.
 
+If a DevConcept skill says to stop, stop. A model's or agent's default tendency to continue executing does not override DevConcept's alignment gate.
+
 ### Lean Mode
 
 Use for trivial, exact, mechanical, or read-only work.
@@ -52,7 +54,7 @@ Behavior:
 - use TDD when practical
 - implement surgically
 - verify affected behavior
-- finish with changed / verified / risk / review-first summary
+- finish with changed / verified / risk / review-starts-at / skills-or-agents-used / skipped-workflow summary
 
 ### Full Mode
 
@@ -79,6 +81,18 @@ Behavior:
 
 Start Lean only when the task is exact and low-risk.
 
+## Mandatory Full Mode Escalation Triggers
+
+Classify the task as Full Mode when any of these are true:
+
+- the implementation is expected to touch backend and frontend;
+- the implementation is expected to touch more than five files;
+- the task changes business-critical rules or trust boundaries, such as account entitlements, quotas or limits, permissions, auth, data model, persistence, privacy, compliance, or security behavior;
+- the task spans product UI, API/backend behavior, rules/policies, and tests;
+- a wrong assumption would likely cause broad rework or user-visible regression.
+
+Only keep the task in Standard Mode when there is clear evidence the change is narrow, mechanical, and low risk.
+
 Escalate Lean -> Standard when:
 - behavior changes
 - tests may need updates
@@ -87,6 +101,7 @@ Escalate Lean -> Standard when:
 - a wrong assumption would cause rework
 
 Escalate Standard -> Full when:
+- any Mandatory Full Mode escalation trigger applies
 - more than one subsystem is involved
 - likely more than five files are touched
 - security, auth, billing, permissions, or data integrity is involved
@@ -109,12 +124,26 @@ Do not keep Full Mode ceremony after the risk has been reduced.
 
 ## Plan Review Rules
 
+## Full Mode Plan-Review Gate
+
+Before the first edit in Full Mode, run `devconcept-plan-reviewer`.
+
+If the runtime cannot dispatch `devconcept-plan-reviewer`, run the same plan-review checklist inline and print the verdict before editing.
+
+The plan-review verdict must be one of:
+
+- `PASS` - proceed;
+- `PASS WITH WARNINGS` - proceed, but call out risks;
+- `BLOCKED` - ask the user or revise the plan before implementation.
+
+`update_plan` is not a substitute for plan review.
+
 Use `devconcept-plan-reviewer`:
 - always in Full Mode before implementation
 - in Standard Mode when the change affects architecture, security, billing, auth, permissions, data integrity, or public API contracts
 - never in Lean Mode
 
-If the runtime cannot dispatch `devconcept-plan-reviewer` (Codex without the agent synced, or any session where subagents are unavailable or refused), run the same Plan Review Checklist inline before implementation and post the verdict in the same shape (`pass | needs revision`, blockers, warnings, requirement coverage, verification gaps, recommended revision). Do not skip plan review just because dispatch is not available.
+If the runtime cannot dispatch `devconcept-plan-reviewer` (Codex without the agent synced, or any session where subagents are unavailable or refused), run the same Plan Review Checklist inline before implementation and post the verdict in the required Full Mode plan-review shape. Do not skip plan review just because dispatch is not available.
 
 ### Plan Review Checklist
 
@@ -122,15 +151,17 @@ Check:
 - Does the plan directly satisfy the user request?
 - Are assumptions explicit?
 - Are product decisions identified instead of invented?
-- Are affected files or areas identified?
+- Are all affected surfaces identified?
+- Are data model, API, UI, tests, and migration/rules impacts covered when relevant?
 - Are dependencies ordered correctly?
 - Is verification concrete?
 - Is scope reduced silently?
-- Is any step too broad for one agent/context?
+- Is any blocker present before implementation?
 
 Return:
-- `pass` only if implementation can start safely
-- `needs revision` if blockers exist
+- `PASS` only if implementation can start safely
+- `PASS WITH WARNINGS` when implementation can start, but risks or verification gaps must be called out
+- `BLOCKED` if blockers exist
 
 ## Implementation Deviation Protocol
 
@@ -197,7 +228,7 @@ Verified:
 - command/result, file/line proof, or blocked + reason
 Risk / not done:
 - ...
-Review first:
+Review starts at:
 - ...
 Skills / agents used:
 - ...
